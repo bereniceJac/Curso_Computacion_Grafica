@@ -1,6 +1,6 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 11/02/2025
+* Fecha: 13/02/2025
 * Practica 2: Dibujo de primitivas en 2D
 /*/
 #include<iostream>
@@ -212,6 +212,7 @@ int main() {
         glPointSize(5);
         glDrawArrays(GL_POINTS,0,61);
         
+		//trazado de contornos
 		glDrawArrays(GL_LINE_LOOP, 0, 5); //colita
 		glDrawArrays(GL_LINE_LOOP, 4, 3); //triangulo 1
 		glDrawArrays(GL_LINE_LOOP, 5, 3); //triangulo 2
