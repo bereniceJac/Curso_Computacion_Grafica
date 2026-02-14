@@ -65,55 +65,98 @@ int main() {
 	// Set up vertex data (and buffer(s)) and attribute pointers
 	float vertices[] = {
 		//colita
-		-0.5f,  0.5f, 0.0f,    1.0f,1.0f,1.0f,// 0 E
-		-0.7f,  0.3f, 0.0f,    1.0f,1.0f,1.0f,  //1 A
-		-0.65f, 0.2f, 0.0f,    1.0f,1.0f,1.0f,  //2 B
-		-0.6f,  0.3f, 0.0f,    1.0f,1.0f,1.0f,  //3 C
-		-0.48f, 0.4f, 0.0f,    1.0f,1.0f,1.0f,  //4 D
+		-0.7f,  0.5f, 0.0f,    1.0f,0.5f,1.0f,// 0 E
+		-0.9f,  0.3f, 0.0f,    1.0f,0.5f,0.5f,  //1 A
+		-0.85f, 0.2f, 0.0f,    0.5f,1.0f,0.0f,  //2 B
+		-0.8f,  0.3f, 0.0f,    0.5f,1.0f,1.0f,  //3 C
+		-0.68f, 0.4f, 0.0f,    0.4f,0.3f,1.0f,  //4 D
 		
 
 		//espalda
-		-0.43f,  0.14f, 0.0f,    1.0f,0.0f,0.0f,  //5 G
-		-0.33f,  0.54f, 0.0f,    1.0f,0.0f,0.0f,  //6 H
-		-0.26f,  0.11f, 0.0f,    1.0f,0.0f,0.0f,  //7 I
-		-0.02f,  0.55f, 0.0f,    1.0f,0.0f,0.0f,  //8 J
-		0.08f,  -0.04f, 0.0f,    1.0f,0.0f,0.0f,  //9 A1
+		-0.63f,  0.14f, 0.0f,    1.0f,0.2f,0.1f,  //5 G
+		-0.53f,  0.54f, 0.0f,    1.0f,0.3f,0.0f,  //6 H
+		-0.46f,  0.11f, 0.0f,    1.0f,0.0f,0.2f,  //7 I
+		-0.22f,  0.55f, 0.0f,    0.0f,0.2f,0.3f,  //8 J 
+		 0.0f,   0.0f,  0.0f,    1.0f,0.0f,0.0f,  //9 A1
 		
 
 		//pata
-		-0.03f, -0.35f, 0.0f,    0.0f,1.0f,0.0f,  //10 S
-		-0.04f, -0.29f, 0.0f,    0.0f,1.0f,0.0f,  //11 T
-		-0.13f, -0.34f, 0.0f,    0.0f,1.0f,0.0f,  //12 U
-		-0.2f,  -0.4f,  0.0f,    0.0f,1.0f,0.0f,  //23 V
-		-0.26f, -0.52f, 0.0f,    0.0f,1.0f,0.0f,  //14 M
-		-0.1f,  -0.53f, 0.0f,    0.0f,1.0f,0.0f,  //15 W
-		-0.0f,  -0.44f, 0.0f,    0.0f,1.0f,0.0f,  //16 Z
-		-0.67f,  0.06f, 0.0f,    0.0f,1.0f,0.0f,  //17 F
-		-0.67f, -0.19f, 0.0f,    0.0f,1.0f,0.0f,  //18 K
-		-0.55f, -0.47f, 0.0f,    0.0f,1.0f,0.0f,  //19 L
-		-0.39f, -0.32f, 0.0f,    0.0f,1.0f,0.0f,  //20 N
-		-0.3f,  -0.19f, 0.0f,    0.0f,1.0f,0.0f,  //21 O
-		-0.16f, -0.13f, 0.0f,    0.0f,1.0f,0.0f,  //22 P
-		-0.03f, -0.13f, 0.0f,    0.0f,1.0f,0.0f,  //23 Q
-		-0.04f, -0.23f, 0.0f,    0.0f,1.0f,0.0f,  //24 R
+		-0.03f, -0.28f, 0.0f,    0.7f,1.0f,0.0f,  //10 S
+		-0.14f, -0.28f, 0.0f,    0.1f,1.0f,0.0f,  //11 T
+		-0.27f, -0.28f, 0.0f,    0.2f,1.0f,0.0f,  //12 U
+		-0.4f,  -0.36f, 0.0f,    0.8f,1.0f,0.0f,  //23 V
+		-0.46f, -0.52f, 0.0f,    0.0f,0.0f,0.2f,  //14 M
+		-0.27f, -0.53f, 0.0f,    0.0f,1.0f,0.0f,  //15 W
+		-0.12f, -0.44f, 0.0f,    0.0f,1.0f,0.0f,  //16 Z
+		-0.87f,  0.06f, 0.0f,    0.5f,1.5f,1.0f,  //17 F
+		-0.87f, -0.19f, 0.0f,    1.0f,1.0f,0.5f,  //18 K
+		-0.75f, -0.47f, 0.0f,    0.0f,1.0f,0.0f,  //19 L
+		-0.59f, -0.32f, 0.0f,    0.2f,1.0f,0.0f,  //20 N
+		-0.5f,  -0.19f, 0.0f,    0.0f,0.2f,0.8f,  //21 O
+		-0.36f, -0.13f, 0.0f,    0.0f,0.4f,0.5f,  //22 P
+		-0.23f, -0.13f, 0.0f,    0.0f,0.6f,0.7f,  //23 Q
+		-0.11f, -0.15f, 0.0f,    0.0f,0.8f,0.1f,  //24 R
 		
 		//brazo
-		-0.02f,  0.55f, 0.0f,    0.0f,0.0f,1.0f,  //25 J
-		 0.08f, -0.04f, 0.0f,    0.0f,0.0f,1.0f,  //26 A1
-		 0.15f, -0.34f, 0.0f,    0.0f,0.0f,1.0f,  //27 E1
-		 0.27f, -0.5f, 0.0f,     0.0f,0.0f,1.0f,  //28 D1
-		 0.37f, -0.53f, 0.0f,    0.0f,0.0f,1.0f,  //29 F1
-		 0.61f, -0.51f, 0.0f,    0.0f,0.0f,1.0f,  //30 G1
-		 0.57f, -0.43f, 0.0f,    0.0f,0.0f,1.0f,  //31 I2
-		 0.5f,  -0.31f, 0.0f,    0.0f,0.0f,1.0f,  //32 H1
-		 0.3f,  -0.18f, 0.0f,    0.0f,0.0f,1.0f,  //33 C1
-		 0.21f, -0.1f,  0.0f,    0.0f,0.0f,1.0f,  //34 B1
+		-0.22f,  0.55f, 0.0f,    0.0f,0.0f,1.0f,  //25 J
+		 0.0f,   0.0f,  0.0f,    0.0f,0.0f,1.0f,  //26 A1
+		 0.04f, -0.26f, 0.0f,    0.0f,0.0f,1.0f,  //27 E1
+		 0.11f, -0.47f, 0.0f,    0.0f,0.0f,1.0f,  //28 D1
+		 0.3f,  -0.54f, 0.0f,    0.0f,0.0f,1.0f,  //29 F1
+		 0.57f, -0.54f, 0.0f,    0.0f,0.0f,1.0f,  //30 G1
+		 0.36f, -0.28f, 0.0f,    0.0f,0.0f,1.0f,  //31 H1
+		 0.18f, -0.11f, 0.0f,    0.0f,0.0f,1.0f,  //32 C1
+		 0.1f,   0.14f, 0.0f,    0.0f,0.0f,1.0f,  //33 B1
+
+		 
+		 
+		//oreja
+		0.23f,   0.35f,  0.0f,    0.0f,1.0f,1.0f,  //34 V1
+		0.29f,   0.43f,  0.0f,    0.0f,1.0f,1.0f,  //35 I1
+		0.34f,   0.46f,  0.0f,    0.0f,1.0f,1.0f,  //36 N1
+		0.4f,    0.46f,  0.0f,    0.0f,1.0f,1.0f,  //37 O1
+		0.46f,   0.42f,  0.0f,    0.0f,1.0f,1.0f,  //38 P1
+		0.54f,   0.46f,  0.0f,    0.0f,1.0f,1.0f,  //39 Q1
+		0.62f,   0.44f,  0.0f,    0.0f,1.0f,1.0f,  //40 R1
+		0.57f,   0.32f,  0.0f,    0.0f,1.0f,1.0f,  //41 J1
+		0.44f,   0.37f,  0.0f,    0.0f,1.0f,1.0f,  //42 S1
+		0.38f,   0.35f,  0.0f,    0.0f,1.0f,1.0f,  //43 T1
+		0.32f,   0.33f,  0.0f,    0.0f,1.0f,1.0f,  //44 U1
+
+		
+		//ojo
+		0.82f,  -0.1f,   0.0f,    1.0f,1.0f,1.0f,  //45 Z1
+		0.75f,  -0.2f,   0.0f,    1.0f,1.0f,1.0f,  //46 A2
+		0.64f,  -0.24f,  0.0f,    1.0f,1.0f,1.0f,  //47 B2
+		0.6f,   -0.2f,   0.0f,    1.0f,1.0f,1.0f,  //48 C2
+		0.56f,  -0.1f,   0.0f,    1.0f,1.0f,1.0f,  //49 W1
+		0.73f,   0.05f,  0.0f,    1.0f,1.0f,1.0f,  //50 L1
+		
+		//nariz
+		0.89f,  -0.23f,  0.0f,    0.0f,1.0f,0.7f,  //51 G2
+		0.95f,  -0.17f,  0.0f,    1.0f,0.7f,0.0f,  //52 H2
+		0.96f,  -0.25f,  0.0f,    0.7f,1.0f,0.0f,  //53 F2
+
+
+		//Contorno de la cabeza va desde H2- I2
+		0.87f,  -0.39f,  0.0f,    1.0f,1.0f,0.0f,  //54 E2
+		0.73f,  -0.51f,  0.0f,    1.0f,1.0f,0.0f,  //55 D2
+		0.57f,  -0.54f,  0.0f,    1.0f,1.0f,0.0f,  //56 G1
+		0.36f,  -0.28f, 0.0f,     1.0f,1.0f,0.0f,  //57 H1
+		0.57f,   0.32f,  0.0f,    1.0f,1.0f,0.0f,  //58 J1
+		0.8f,    0.2f,  0.0f,     1.0f,1.0f,0.0f,  //59 K1
+		0.86f,   0.05f,  0.0f,    1.0f,1.0f,0.0f,  //60 M1
+		0.88f,  -0.11f,  0.0f,    1.0f,1.0f,0.0f,  //61 I2
+
 	};
 	
 	unsigned int indices[] = {  // note that we start from 0!
 		2, 17,   17, 5,   17, 18,  7,22,   18,19,    19, 14,
-		14,20,   21, 22,   20,21,  22,23,  23,24,    24, 10,
+		14,20,   21, 22,  20, 21,  22,23,  23,24,    24, 10,
+		25,35,   31, 49,  50, 60,  50,59,
 
+		//contorno de la pata
+		17, 18, 19, 14, 20, 21, 22, 7, 5
 	};
 	
 	
@@ -167,28 +210,37 @@ int main() {
 
 
         glPointSize(5);
-        glDrawArrays(GL_POINTS,0,60);
+        glDrawArrays(GL_POINTS,0,61);
         
-       
 		glDrawArrays(GL_LINE_LOOP, 0, 5); //colita
 		glDrawArrays(GL_LINE_LOOP, 4, 3); //triangulo 1
 		glDrawArrays(GL_LINE_LOOP, 5, 3); //triangulo 2
 		glDrawArrays(GL_LINE_LOOP, 6, 3); //triangulo 3
 		glDrawArrays(GL_LINE_LOOP, 7, 3); //triangulo 4
 		glDrawArrays(GL_LINE_LOOP, 10, 7); //parte interna de la pata 
-		glDrawElements(GL_LINES, 26, GL_UNSIGNED_INT, 0); //parte externa de la pata, une las líneas en base al ínidice
-		glDrawArrays(GL_LINE_LOOP, 25, 10); //brazo
+		glDrawElements(GL_LINES, 32, GL_UNSIGNED_INT, 0); //parte externa de la pata, une las líneas en base al indice
+		glDrawArrays(GL_LINE_LOOP, 25, 9); //brazo
+		glDrawArrays(GL_LINE_LOOP, 34, 11); //oreja
+		glDrawArrays(GL_LINE_LOOP, 45, 6); //ojo
+		glDrawArrays(GL_LINE_LOOP, 51, 3); //nariz
+		glDrawArrays(GL_LINE_LOOP, 52, 10); //contorno de cabeza
+		glDrawArrays(GL_LINE_LOOP, 33, 2); //líena que me falta
 		
 		
-		
-		
-		
+		//relleno de color de algunas partes
+		glDrawArrays(GL_TRIANGLE_FAN, 0, 5); //colita
+		glDrawArrays(GL_TRIANGLE_FAN, 10, 7); //parte interna de la pata
+		glDrawArrays(GL_TRIANGLES,51,3); //nariz
+		glDrawArrays(GL_TRIANGLE_FAN, 34, 11); //oreja
+		glDrawArrays(GL_TRIANGLE_FAN, 45, 6); //ojo
+
+
 		//glDrawElements(GL_LINE_LOOP, 2, GL_UNSIGNED_INT, 0);// línea que me falta
 		
 		//glDrawArrays(GL_LINE_LOOP, 5, 7);
         
-       // glDrawArrays(GL_TRIANGLES,0,6);
-       // glDrawElements(GL_TRIANGLES, 5,GL_UNSIGNED_INT,0);
+       
+       
 
         
         
