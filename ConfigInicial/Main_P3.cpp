@@ -1,7 +1,7 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 17/02/2025
-* Previo 3: Proyecciones, transformaciones y Shaders
+* Fecha: XX/02/2025
+* Practica 3: Proyecciones, transformaciones y Shaders
 /*/
 
 #include<iostream>
@@ -21,7 +21,7 @@
 // Shaders
 #include "Shader.h"
 
-const GLint WIDTH = 800, HEIGHT = 600;
+const GLint WIDTH = 1000, HEIGHT = 800;
 
 
 int main() {
@@ -224,9 +224,9 @@ int main() {
 		glm::mat4 model=glm::mat4(1);
 		glm::mat4 view=glm::mat4(1);
 	
-	   view = glm::translate(view, glm::vec3(0.0f,0.0f,-12.0f));
+	   view = glm::translate(view, glm::vec3(-1.0f,-2.0f,-10.0f));
 		model = glm::rotate( model, 0.5f, glm::vec3( 0.0f, 1.0f, 0.0f ) ); // use to compare orthographic and perspective projection
-		model = glm::scale(model, glm::vec3(2.0f, 3.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
 		//view = glm::translate( view, glm::vec3( screenWidth / 2, screenHeight / 3,-800.0f ) ); // use with orthographic projection
 		
 		GLint modelLoc = glGetUniformLocation(ourShader.Program, "model");
@@ -240,16 +240,32 @@ int main() {
 
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-		//agregando otra figura
-		model = glm::mat4(1);
-		model = glm::translate(model,glm::vec3(5.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, 45.0f, glm::vec3(0.0f, 0.0f, 1.0f)); // use to compare orthographic and perspective projection
-		model = glm::scale(model, glm::vec3(8.0f, 1.0f, 5.0f));
 
+
+		//agregando segundo bloque
+		model = glm::mat4(1);
+		model = glm::translate(model,glm::vec3(0.8f, 0.8f, 0.0f));
+		model = glm::rotate(model, 45.0f, glm::vec3(-5.0f, -5.0f, -5.0f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(1.2f, 2.0f, 1.2f));
 		
+
 		
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+
+		//agregando tercer bloque
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(3.0f, 3.0f, 0.0f));
+		model = glm::rotate(model, 45.0f, glm::vec3(-5.0f, -5.0f, 5.0f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(0.5f, 1.0f, 2.0f));
+
+
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
 
 		glBindVertexArray(0);
 
