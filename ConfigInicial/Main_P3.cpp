@@ -223,8 +223,8 @@ int main() {
 		ourShader.Use();
 		glm::mat4 model=glm::mat4(1);
 		glm::mat4 view=glm::mat4(1);
-		//regresar la coordenada y a -2.0f en el view para que se vea el bloque completo
-	   view = glm::translate(view, glm::vec3(-1.0f,-2.0f,-10.0f));
+		//regresar la coordenada y a -3.0f en el view para que se vea el bloque completo
+	   view = glm::translate(view, glm::vec3(0.0f, -3.0f,-12.0f)); //regresar la componente Z a -12
 		model = glm::rotate( model, 0.5f, glm::vec3( 0.0f, 1.0f, 0.0f ) ); // use to compare orthographic and perspective projection
 		model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
 		//view = glm::translate( view, glm::vec3( screenWidth / 2, screenHeight / 3,-800.0f ) ); // use with orthographic projection
@@ -236,8 +236,6 @@ int main() {
 		glUniformMatrix4fv(projecLoc, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		
-
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
@@ -247,9 +245,6 @@ int main() {
 		model = glm::translate(model,glm::vec3(-0.8f, 1.8f, 0.0f));
 		model = glm::rotate(model, 45.0f, glm::vec3(0.05f,-1.0f, 0.0f)); // use to compare orthographic and perspective projection
 		model = glm::scale(model, glm::vec3(1.2f, 2.0f, 1.2f));
-		
-
-		
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
@@ -260,8 +255,6 @@ int main() {
 		model = glm::translate(model, glm::vec3(0.0f, 3.0f, 0.5f));
 		model = glm::rotate(model, 45.0f, glm::vec3(-8.0f, -8.0f, 5.0f)); // use to compare orthographic and perspective projection
 		model = glm::scale(model, glm::vec3(0.5f, 1.0f, 2.0f));
-
-
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
@@ -275,6 +268,29 @@ int main() {
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
+		//agregando quinto bloque
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-0.4f, 5.1f, 0.8f));
+		model = glm::rotate(model, 60.0f, glm::vec3(0.0f, 1.0f, 0.0f)); 
+		model = glm::scale(model, glm::vec3(0.7f, 1.5f, 2.5f)); 
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//agregando sexto bloque
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-0.8f, 6.4f, 1.5f));
+		model = glm::rotate(model, 1.57f, glm::vec3(1.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//agregando septimo bloque
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-3.0f, 5.0f, 0.0f));
+		model = glm::rotate(model, 45.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		glBindVertexArray(0);
 
