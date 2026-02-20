@@ -286,9 +286,9 @@ int main() {
 
 		//agregando septimo bloque
 		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(-3.0f, 5.0f, 0.0f));
-		model = glm::rotate(model, 45.0f, glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(-0.5f, 8.0f, 0.5f));
+		model = glm::rotate(model, 3.14f, glm::vec3(1.0f, 1.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.5f, 2.0f, 2.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
