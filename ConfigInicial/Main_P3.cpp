@@ -244,7 +244,7 @@ int main() {
 
 		//agregando segundo bloque
 		model = glm::mat4(1);
-		model = glm::translate(model,glm::vec3(0.8f, 0.8f, 0.0f));
+		model = glm::translate(model,glm::vec3(1.8f, 1.4f, 0.0f));
 		model = glm::rotate(model, 45.0f, glm::vec3(-5.0f, -5.0f, -5.0f)); // use to compare orthographic and perspective projection
 		model = glm::scale(model, glm::vec3(1.2f, 2.0f, 1.2f));
 		
@@ -257,8 +257,8 @@ int main() {
 
 		//agregando tercer bloque
 		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(3.0f, 3.0f, 0.0f));
-		model = glm::rotate(model, 45.0f, glm::vec3(-5.0f, -5.0f, 5.0f)); // use to compare orthographic and perspective projection
+		model = glm::translate(model, glm::vec3(1.3f, 3.5f, 0.0f));
+		model = glm::rotate(model, 45.0f, glm::vec3(-8.0f, -8.0f, 5.0f)); // use to compare orthographic and perspective projection
 		model = glm::scale(model, glm::vec3(0.5f, 1.0f, 2.0f));
 
 
