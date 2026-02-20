@@ -256,14 +256,23 @@ int main() {
 
 
 		//agregando tercer bloque
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(1.3f, 3.5f, 0.0f));
-		//model = glm::rotate(model, 45.0f, glm::vec3(-8.0f, -8.0f, 5.0f)); // use to compare orthographic and perspective projection
-		//model = glm::scale(model, glm::vec3(0.5f, 1.0f, 2.0f));
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(0.0f, 3.0f, 0.5f));
+		model = glm::rotate(model, 45.0f, glm::vec3(-8.0f, -8.0f, 5.0f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(0.5f, 1.0f, 2.0f));
 
 
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+		//agregando cuarto bloque
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-0.6f, 4.1f, 0.9f));
+		model = glm::rotate(model, 90.0f, glm::vec3(0.0f, 1.0f, 0.0f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 
 
