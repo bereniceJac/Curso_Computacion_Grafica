@@ -1,6 +1,6 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: XX/02/2025
+* Fecha: 21/02/2025
 * Practica 3: Proyecciones, transformaciones y Shaders
 /*/
 
@@ -239,7 +239,7 @@ int main() {
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-
+		
 		//agregando segundo bloque
 		model = glm::mat4(1);
 		model = glm::translate(model,glm::vec3(-0.8f, 1.8f, 0.0f));
@@ -286,7 +286,7 @@ int main() {
 
 		//agregando septimo bloque
 		model = glm::mat4(1);
-		model = glm::translate(model, glm::vec3(-0.5f, 8.0f, 0.5f));
+		model = glm::translate(model, glm::vec3(-0.5f, 7.8f, 0.5f));
 		model = glm::rotate(model, 3.14f, glm::vec3(1.0f, 1.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.5f, 2.0f, 2.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
