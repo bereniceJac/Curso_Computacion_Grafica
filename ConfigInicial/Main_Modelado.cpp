@@ -202,13 +202,48 @@ int main() {
 	
 
 		glBindVertexArray(VAO);
-	
+		//superficie de la mesa
 	    model = glm::mat4(1.0f);
+		//definir el tamaño de la superficie de la mesa
+		model = glm::scale(model, glm::vec3(3.0f, 0.1f, 2.0f)); //ancho, grosor, profundidad
+		//herramienta de traslacion
+		model = glm::translate(model, glm::vec3(0.0f, 0.6f, 0.0f)); //x,y,z
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+					
+		//primera pata de la mesa
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
+		model = glm::translate(model, glm::vec3(2.9f, -0.6f, 1.9f)); //posiciona la pata
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		
+
+		//segunda pata de la mesa
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
+		model = glm::translate(model, glm::vec3(-2.9f, -0.6f, 1.9f)); //posiciona la pata
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		
+
+		//tercera pata de la mesa
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
+		model = glm::translate(model, glm::vec3(-2.9f, -0.6f, -1.9f)); //posiciona la pata
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		
+
+
+		//cuarta pata de la mesa
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
+		model = glm::translate(model, glm::vec3(2.9f, -0.6f, -1.9f)); //posiciona la pata
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);
 
-				
 
 		// Swap the screen buffers
 		glfwSwapBuffers(window);
@@ -226,21 +261,21 @@ int main() {
 	 if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)  //GLFW_RELEASE
 		 glfwSetWindowShouldClose(window, true);
 	 if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		 movX += 0.08f;
+		 movX += 0.0008f;
 	 if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		 movX -= 0.08f;
-	 if (glfwGetKey(window, GLFW_KEY_PAGE_UP) == GLFW_PRESS)
-		 movY += 0.08f;
-	 if (glfwGetKey(window, GLFW_KEY_PAGE_DOWN) == GLFW_PRESS)
-		 movY -= 0.08f;
+		 movX -= 0.0008f;
+	 if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+		 movY += 0.0008f;
+	 if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		 movY -= 0.0008f;
 	 if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		 movZ -= 0.08f;
+		 movZ += 0.0008f;
 	 if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		 movZ += 0.08f;
+		 movZ -= 0.0008f;
 	 if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		 rot += 0.4f;
+		 rot += 0.004f;
 	 if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		 rot -= 0.4f;
+		 rot -= 0.004f;
  }
 
 
