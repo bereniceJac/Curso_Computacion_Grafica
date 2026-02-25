@@ -1,7 +1,7 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
 * Fecha: 24/02/2025
-* Previo 4: Modelado Geometrico
+* Practica 4: Modelado Geometrico
 /*/
 
 #include<iostream>
@@ -95,40 +95,40 @@ int main() {
 		-0.5f,  0.5f, 0.5f, 1.0f, 0.0f,0.0f,
 		-0.5f, -0.5f, 0.5f, 1.0f, 0.0f,0.0f,
 		
-	    -0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,//Back
-		 0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-		 0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-		 0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-	    -0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-	    -0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,
+	    -0.5f, -0.5f,-0.5f, 1.0f, 0.0f,0.0f,//Back
+		 0.5f, -0.5f,-0.5f, 1.0f, 0.0f,0.0f,
+		 0.5f,  0.5f,-0.5f, 1.0f, 0.0f,0.0f,
+		 0.5f,  0.5f,-0.5f, 1.0f, 0.0f,0.0f,
+	    -0.5f,  0.5f,-0.5f, 1.0f, 0.0f,0.0f,
+	    -0.5f, -0.5f,-0.5f, 1.0f, 0.0f,0.0f,
 		
-		 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f, 0.0f,1.0f,
-		 0.5f,  -0.5f, 0.5f, 0.0f, 0.0f,1.0f,
+		 0.5f, -0.5f,  0.5f,  0.8f, 0.0f,0.0f,//derecha
+		 0.5f, -0.5f, -0.5f,  0.8f, 0.0f,0.0f,
+		 0.5f,  0.5f, -0.5f,  0.8f, 0.0f,0.0f,
+		 0.5f,  0.5f, -0.5f,  0.8f, 0.0f,0.0f,
+		 0.5f,  0.5f,  0.5f,  0.8f, 0.0f,0.0f,
+		 0.5f,  -0.5f, 0.5f,  0.8f, 0.0f,0.0f,
       
-		-0.5f,  0.5f,  0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f, -0.5f, -0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f, -0.5f, -0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f, -0.5f,  0.5f,  1.0f, 1.0f,0.0f,
-		-0.5f,  0.5f,  0.5f,  1.0f, 1.0f,0.0f,
+		-0.5f,  0.5f,  0.5f,  0.8f, 0.0f,0.0f,
+		-0.5f,  0.5f, -0.5f,  0.8f, 0.0f,0.0f,//izquierda
+		-0.5f, -0.5f, -0.5f,  0.8f, 0.0f,0.0f,
+		-0.5f, -0.5f, -0.5f,  0.8f, 0.0f,0.0f,
+		-0.5f, -0.5f,  0.5f,  0.8f, 0.0f,0.0f,
+		-0.5f,  0.5f,  0.5f,  0.8f, 0.0f,0.0f,
 		
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,1.0f,
-		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, 1.0f,1.0f,
-		0.5f, -0.5f,  0.5f,  0.0f, 1.0f,1.0f,
-		-0.5f, -0.5f,  0.5f, 0.0f, 1.0f,1.0f,
-		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,1.0f,
+		-0.5f, -0.5f, -0.5f, 0.6f, 0.0f,0.0f,
+		0.5f, -0.5f, -0.5f,  0.6f, 0.0f,0.0f, //abajo
+		0.5f, -0.5f,  0.5f,  0.6f, 0.0f,0.0f,
+		0.5f, -0.5f,  0.5f,  0.6f, 0.0f,0.0f,
+		-0.5f, -0.5f,  0.5f, 0.6f, 0.0f,0.0f,
+		-0.5f, -0.5f, -0.5f, 0.6f, 0.0f,0.0f,
 		
-		-0.5f,  0.5f, -0.5f, 1.0f, 0.2f,0.5f,
-		0.5f,  0.5f, -0.5f,  1.0f, 0.2f,0.5f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.2f,0.5f,
-		0.5f,  0.5f,  0.5f,  1.0f, 0.2f,0.5f,
-		-0.5f,  0.5f,  0.5f, 1.0f, 0.2f,0.5f,
-		-0.5f,  0.5f, -0.5f, 1.0f, 0.2f,0.5f,
+		-0.5f,  0.5f, -0.5f, 0.6f, 0.0f,0.0f,//arriba
+		0.5f,  0.5f, -0.5f,  0.6f, 0.0f,0.0f,
+		0.5f,  0.5f,  0.5f,  0.6f, 0.0f,0.0f,
+		0.5f,  0.5f,  0.5f,  0.6f, 0.0f,0.0f,
+		-0.5f,  0.5f,  0.5f, 0.6f, 0.0f,0.0f,
+		-0.5f,  0.5f, -0.5f, 0.6f, 0.0f,0.0f,
 	};
 
 
@@ -202,47 +202,47 @@ int main() {
 	
 
 		glBindVertexArray(VAO);
-		//superficie de la mesa
+		//superficie roja
 	    model = glm::mat4(1.0f);
 		//definir el tamaño de la superficie de la mesa
-		model = glm::scale(model, glm::vec3(3.0f, 0.1f, 2.0f)); //ancho, grosor, profundidad
+		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 1.0f)); //ancho, grosor, profundidad
 		//herramienta de traslacion
-		model = glm::translate(model, glm::vec3(0.0f, 0.6f, 0.0f)); //x,y,z
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); //x,y,z
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 					
 		//primera pata de la mesa
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
-		model = glm::translate(model, glm::vec3(2.9f, -0.6f, 1.9f)); //posiciona la pata
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		
+		//model = glm::mat4(1.0f);
+		//model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
+		//model = glm::translate(model, glm::vec3(2.9f, -0.6f, 1.9f)); //posiciona la pata
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		//
 
-		//segunda pata de la mesa
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
-		model = glm::translate(model, glm::vec3(-2.9f, -0.6f, 1.9f)); //posiciona la pata
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		
+		////segunda pata de la mesa
+		//model = glm::mat4(1.0f);
+		//model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
+		//model = glm::translate(model, glm::vec3(-2.9f, -0.6f, 1.9f)); //posiciona la pata
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		//
 
-		//tercera pata de la mesa
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
-		model = glm::translate(model, glm::vec3(-2.9f, -0.6f, -1.9f)); //posiciona la pata
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		
+		////tercera pata de la mesa
+		//model = glm::mat4(1.0f);
+		//model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
+		//model = glm::translate(model, glm::vec3(-2.9f, -0.6f, -1.9f)); //posiciona la pata
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		//
 
 
-		//cuarta pata de la mesa
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
-		model = glm::translate(model, glm::vec3(2.9f, -0.6f, -1.9f)); //posiciona la pata
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		glBindVertexArray(0);
+		////cuarta pata de la mesa
+		//model = glm::mat4(1.0f);
+		//model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
+		//model = glm::translate(model, glm::vec3(2.9f, -0.6f, -1.9f)); //posiciona la pata
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		//glBindVertexArray(0);
 
 
 		// Swap the screen buffers
