@@ -88,47 +88,47 @@ int main() {
 
 	// use with Perspective Projection
 	float vertices[] = {
-		-0.5f, -0.5f, 0.5f, 1.0f, 0.0f,0.0f,//Front
-		0.5f, -0.5f, 0.5f,  1.0f, 0.0f,0.0f,
-		0.5f,  0.5f, 0.5f,  1.0f, 0.0f,0.0f,
-		0.5f,  0.5f, 0.5f,  1.0f, 0.0f,0.0f,
-		-0.5f,  0.5f, 0.5f, 1.0f, 0.0f,0.0f,
-		-0.5f, -0.5f, 0.5f, 1.0f, 0.0f,0.0f,
+		-0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f,//Front
+		0.5f, -0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
+		0.5f,  0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
+		0.5f,  0.5f, 0.5f,  1.0f, 1.0f, 1.0f,
+		-0.5f,  0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
 		
-	    -0.5f, -0.5f,-0.5f, 1.0f, 0.0f,0.0f,//Back
-		 0.5f, -0.5f,-0.5f, 1.0f, 0.0f,0.0f,
-		 0.5f,  0.5f,-0.5f, 1.0f, 0.0f,0.0f,
-		 0.5f,  0.5f,-0.5f, 1.0f, 0.0f,0.0f,
-	    -0.5f,  0.5f,-0.5f, 1.0f, 0.0f,0.0f,
-	    -0.5f, -0.5f,-0.5f, 1.0f, 0.0f,0.0f,
+	    -0.5f, -0.5f,-0.5f, 1.0f, 1.0f, 1.0f,//Back
+		 0.5f, -0.5f,-0.5f, 1.0f, 1.0f, 1.0f,
+		 0.5f,  0.5f,-0.5f, 1.0f, 1.0f, 1.0f,
+		 0.5f,  0.5f,-0.5f, 1.0f, 1.0f, 1.0f,
+	    -0.5f,  0.5f,-0.5f, 1.0f, 1.0f, 1.0f,
+	    -0.5f, -0.5f,-0.5f, 1.0f, 1.0f, 1.0f,
 		
-		 0.5f, -0.5f,  0.5f,  0.8f, 0.0f,0.0f,//derecha
-		 0.5f, -0.5f, -0.5f,  0.8f, 0.0f,0.0f,
-		 0.5f,  0.5f, -0.5f,  0.8f, 0.0f,0.0f,
-		 0.5f,  0.5f, -0.5f,  0.8f, 0.0f,0.0f,
-		 0.5f,  0.5f,  0.5f,  0.8f, 0.0f,0.0f,
-		 0.5f,  -0.5f, 0.5f,  0.8f, 0.0f,0.0f,
+		 0.5f, -0.5f,  0.5f,  0.8f, 0.8f, 0.8f,//derecha
+		 0.5f, -0.5f, -0.5f,  0.8f, 0.8f, 0.8f,
+		 0.5f,  0.5f, -0.5f,  0.8f, 0.8f, 0.8f,
+		 0.5f,  0.5f, -0.5f,  0.8f, 0.8f, 0.8f,
+		 0.5f,  0.5f,  0.5f,  0.8f, 0.8f, 0.8f,
+		 0.5f,  -0.5f, 0.5f,  0.8f, 0.8f, 0.8f,
       
-		-0.5f,  0.5f,  0.5f,  0.8f, 0.0f,0.0f,
-		-0.5f,  0.5f, -0.5f,  0.8f, 0.0f,0.0f,//izquierda
-		-0.5f, -0.5f, -0.5f,  0.8f, 0.0f,0.0f,
-		-0.5f, -0.5f, -0.5f,  0.8f, 0.0f,0.0f,
-		-0.5f, -0.5f,  0.5f,  0.8f, 0.0f,0.0f,
-		-0.5f,  0.5f,  0.5f,  0.8f, 0.0f,0.0f,
+		-0.5f,  0.5f,  0.5f,  0.8f, 0.8f, 0.8f,
+		-0.5f,  0.5f, -0.5f,  0.8f, 0.8f, 0.8f,//izquierda
+		-0.5f, -0.5f, -0.5f,  0.8f, 0.8f, 0.8f,
+		-0.5f, -0.5f, -0.5f,  0.8f, 0.8f, 0.8f,
+		-0.5f, -0.5f,  0.5f,  0.8f, 0.8f, 0.8f,
+		-0.5f,  0.5f,  0.5f,  0.8f, 0.8f, 0.8f,
 		
-		-0.5f, -0.5f, -0.5f, 0.6f, 0.0f,0.0f,
-		0.5f, -0.5f, -0.5f,  0.6f, 0.0f,0.0f, //abajo
-		0.5f, -0.5f,  0.5f,  0.6f, 0.0f,0.0f,
-		0.5f, -0.5f,  0.5f,  0.6f, 0.0f,0.0f,
-		-0.5f, -0.5f,  0.5f, 0.6f, 0.0f,0.0f,
-		-0.5f, -0.5f, -0.5f, 0.6f, 0.0f,0.0f,
+		-0.5f, -0.5f, -0.5f, 0.6f, 0.6f, 0.6f,
+		0.5f, -0.5f, -0.5f,  0.6f, 0.6f, 0.6f, //abajo
+		0.5f, -0.5f,  0.5f,  0.6f, 0.6f, 0.6f,
+		0.5f, -0.5f,  0.5f,  0.6f, 0.6f, 0.6f,
+		-0.5f, -0.5f,  0.5f, 0.6f, 0.6f, 0.6f,
+		-0.5f, -0.5f, -0.5f, 0.6f, 0.6f, 0.6f,
 		
-		-0.5f,  0.5f, -0.5f, 0.6f, 0.0f,0.0f,//arriba
-		0.5f,  0.5f, -0.5f,  0.6f, 0.0f,0.0f,
-		0.5f,  0.5f,  0.5f,  0.6f, 0.0f,0.0f,
-		0.5f,  0.5f,  0.5f,  0.6f, 0.0f,0.0f,
-		-0.5f,  0.5f,  0.5f, 0.6f, 0.0f,0.0f,
-		-0.5f,  0.5f, -0.5f, 0.6f, 0.0f,0.0f,
+		-0.5f,  0.5f, -0.5f, 0.6f, 0.6f, 0.6f,//arriba
+		0.5f,  0.5f, -0.5f,  0.6f, 0.6f, 0.6f,
+		0.5f,  0.5f,  0.5f,  0.6f, 0.6f, 0.6f,
+		0.5f,  0.5f,  0.5f,  0.6f, 0.6f, 0.6f,
+		-0.5f,  0.5f,  0.5f, 0.6f, 0.6f, 0.6f,
+		-0.5f,  0.5f, -0.5f, 0.6f, 0.6f, 0.6f,
 	};
 
 
@@ -194,7 +194,7 @@ int main() {
 		GLint modelLoc = glGetUniformLocation(ourShader.Program, "model");
 		GLint viewLoc = glGetUniformLocation(ourShader.Program, "view");
 		GLint projecLoc = glGetUniformLocation(ourShader.Program, "projection");
-
+		GLint baseColorLoc = glGetUniformLocation(ourShader.Program, "baseColor"); //esta es la que se agrega para obtener el color del fragmento
 
 		glUniformMatrix4fv(projecLoc, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
@@ -202,47 +202,89 @@ int main() {
 	
 
 		glBindVertexArray(VAO);
-		//superficie roja
-	    model = glm::mat4(1.0f);
-		//definir el tamaño de la superficie de la mesa
-		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 1.0f)); //ancho, grosor, profundidad
-		//herramienta de traslacion
+
+		//tallo verde
+		glUniform3f(baseColorLoc, 0.0f, 0.8f, 0.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.25f, 1.0f, 0.25f)); //ancho, grosor, profundidad
 		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); //x,y,z
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-					
-		//primera pata de la mesa
+
+		//cuadrado de la hoja verde izquierda
+		glUniform3f(baseColorLoc, 0.0f, 0.8f, 0.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.7f, 0.2f, 0.7f)); //ancho, altura, profundidad
+		model = glm::translate(model, glm::vec3(-0.9f, 0.0f, 0.0f)); //x,y,z
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		
+		//rectangulos de la hoja izquierda 
+		//rectangulo 1
+		glUniform3f(baseColorLoc, 0.0f, 0.9f, 0.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.175f, 0.2f, 0.4f)); //ancho, altura, profundidad
+		model = glm::translate(model, glm::vec3(-1.2f, 0.0f, 0.0f)); //x,y,z
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		
+		//rectangulo 2
+		glUniform3f(baseColorLoc, 0.0f, 0.9f, 0.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.175f, 0.2f, 0.4f)); //ancho, altura, profundidad
+		model = glm::translate(model, glm::vec3(-6.1f, 0.0f, 0.0f)); //x,y,z
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		
+		//cuadrado de la hoja verde derecha
+		glUniform3f(baseColorLoc, 0.0f, 0.8f, 0.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.7f, 0.2f, 0.7f)); //ancho, altura, profundidad
+		model = glm::translate(model, glm::vec3(0.9f, 0.0f, 0.0f)); //x,y,z
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//rectágulos de la hoja derecha
+		//rectangulo 1
+		glUniform3f(baseColorLoc, 0.0f, 0.9f, 0.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.175f, 0.2f, 0.4f)); //ancho, altura, profundidad
+		model = glm::translate(model, glm::vec3(1.2f, 0.0f, 0.0f)); //x,y,z
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		//rectangulo 2
+		glUniform3f(baseColorLoc, 0.0f, 0.9f, 0.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.175f, 0.2f, 0.4f)); //ancho, altura, profundidad
+		model = glm::translate(model, glm::vec3(6.1f, 0.0f, 0.0f)); //x,y,z
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		
+
+
+		////superficie roja
+		//glUniform3f(baseColorLoc, 1.0f, 0.0f, 0.0f);
 		//model = glm::mat4(1.0f);
-		//model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
-		//model = glm::translate(model, glm::vec3(2.9f, -0.6f, 1.9f)); //posiciona la pata
+		//model = glm::scale(model, glm::vec3(2.0f, 2.0f, 1.0f)); //ancho, grosor, profundidad
+		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); //cambiar de posición
 		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		//glDrawArrays(GL_TRIANGLES, 0, 36);
-		//
 
-		////segunda pata de la mesa
-		//model = glm::mat4(1.0f);
-		//model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
-		//model = glm::translate(model, glm::vec3(-2.9f, -0.6f, 1.9f)); //posiciona la pata
+
+
+
+		//rectangulo rojo 1
+		//glUniform3f(baseColorLoc, 1.0f, 0.0f, 0.0f);
+	 //   model = glm::mat4(1.0f);
+		//model = glm::scale(model, glm::vec3(2.5f, 0.3f, 1.0f)); //ancho, grosor, profundidad
+		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); //x,y,z
 		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		//glDrawArrays(GL_TRIANGLES, 0, 36);
-		//
-
-		////tercera pata de la mesa
-		//model = glm::mat4(1.0f);
-		//model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
-		//model = glm::translate(model, glm::vec3(-2.9f, -0.6f, -1.9f)); //posiciona la pata
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
-		//
-
-
-		////cuarta pata de la mesa
-		//model = glm::mat4(1.0f);
-		//model = glm::scale(model, glm::vec3(0.1f, 0.6f, 0.1f)); //tamaño de la pata
-		//model = glm::translate(model, glm::vec3(2.9f, -0.6f, -1.9f)); //posiciona la pata
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
-		//glBindVertexArray(0);
+		
+		
+		
+		glBindVertexArray(0);
 
 
 		// Swap the screen buffers
@@ -273,9 +315,9 @@ int main() {
 	 if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 		 movZ -= 0.0008f;
 	 if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		 rot += 0.004f;
+		 rot += 0.008f;
 	 if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		 rot -= 0.004f;
+		 rot -= 0.008f;
  }
 
 
