@@ -1,6 +1,6 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 24/02/2025
+* Fecha: 27/02/2025
 * Practica 4: Modelado Geometrico
 /*/
 
@@ -312,6 +312,22 @@ int main() {
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(1.6f, 1.2f, 0.5f)); //ancho, grosor, profundidad
 		model = glm::translate(model, glm::vec3(0.0f, 1.2f, 0.2f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		
+		
+		//figuras de los ojos
+		glUniform3f(baseColorLoc, 0.0f, 0.0f, 0.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.25f, 0.8f, 0.2f)); //ancho, grosor, profundidad
+		model = glm::translate(model, glm::vec3(-1.0f, 1.8f, 1.3f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		glUniform3f(baseColorLoc, 0.0f, 0.0f, 0.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.25f, 0.8f, 0.2f)); //ancho, grosor, profundidad
+		model = glm::translate(model, glm::vec3(1.0f, 1.8f, 1.3f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		
