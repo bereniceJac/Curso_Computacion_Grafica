@@ -264,25 +264,56 @@ int main() {
 
 
 		////superficie roja
-		//glUniform3f(baseColorLoc, 1.0f, 0.0f, 0.0f);
-		//model = glm::mat4(1.0f);
-		//model = glm::scale(model, glm::vec3(2.0f, 2.0f, 1.0f)); //ancho, grosor, profundidad
-		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); //cambiar de posición
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		glUniform3f(baseColorLoc, 1.0f, 0.0f, 0.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(2.5f, 1.5f, 0.5f)); //ancho, grosor, profundidad
+		model = glm::translate(model, glm::vec3(0.0f, 0.95f, 0.0f)); 
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-
-
-
-		//rectangulo rojo 1
-		//glUniform3f(baseColorLoc, 1.0f, 0.0f, 0.0f);
-	 //   model = glm::mat4(1.0f);
-		//model = glm::scale(model, glm::vec3(2.5f, 0.3f, 1.0f)); //ancho, grosor, profundidad
-		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); //x,y,z
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		glUniform3f(baseColorLoc, 1.0f, 0.0f, 0.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 0.5f)); //ancho, grosor, profundidad
+		model = glm::translate(model, glm::vec3(0.0f, 0.72f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 		
+		//parte amarilla 
+		glUniform3f(baseColorLoc, 1.0f, 1.0f, 0.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(1.6f, 0.25f, 0.5f)); //ancho, grosor, profundidad
+		model = glm::translate(model, glm::vec3(0.0f, 2.87f, 0.5f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		glUniform3f(baseColorLoc, 1.0f, 1.0f, 0.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(1.6f, 0.25f, 0.5f)); //ancho, grosor, profundidad
+		model = glm::translate(model, glm::vec3(0.0f, 8.57f, 0.5f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		glUniform3f(baseColorLoc, 1.0f, 1.0f, 0.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.2f, 1.2f, 0.5f)); //ancho, grosor, profundidad
+		model = glm::translate(model, glm::vec3(-4.5f, 1.2f, 0.5f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		glUniform3f(baseColorLoc, 1.0f, 1.0f, 0.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.2f, 1.2f, 0.5f)); //ancho, grosor, profundidad
+		model = glm::translate(model, glm::vec3(4.5f, 1.2f, 0.5f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 		
+		//parte blanca
+		glUniform3f(baseColorLoc, 1.0f, 1.0f, 1.0f);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(1.6f, 1.2f, 0.5f)); //ancho, grosor, profundidad
+		model = glm::translate(model, glm::vec3(0.0f, 1.2f, 0.2f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 		
 		glBindVertexArray(0);
 
