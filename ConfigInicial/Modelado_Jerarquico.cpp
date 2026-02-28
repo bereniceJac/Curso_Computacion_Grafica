@@ -27,7 +27,8 @@ movZ = -5.0f,
 rot = 0.0f;
 
 //For model
-float	hombro = 0.0f;
+float	hombro = 0.0f, //nos va a permitir mover el brazo
+codo = 0.0f; //nos va a permitir mover el antebrazo
 
 
 int main() {
@@ -41,7 +42,7 @@ int main() {
 
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Modelado jerarquico", nullptr, nullptr);
+	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Jacinto Robledo - Modelado jerarquico", nullptr, nullptr);
 
 	int screenWidth, screenHeight;
 
@@ -90,7 +91,7 @@ int main() {
 	
 
 	// use with Perspective Projection
-	float vertices[] = {
+	float vertices[] = { //solo se están definiendo las posiciones de los vértices, no se están definiendo colores
 		-0.5f, -0.5f, 0.5f, 
 		0.5f, -0.5f, 0.5f,  
 		0.5f,  0.5f, 0.5f,  
@@ -183,7 +184,7 @@ int main() {
 		ourShader.Use();
 		glm::mat4 model=glm::mat4(1);
 		glm::mat4 view=glm::mat4(1);
-		glm::mat4 modelTemp = glm::mat4(1.0f); //Temp
+		glm::mat4 modelTemp = glm::mat4(1.0f); //nos van a ayudar a controlar la información que se tenga almacenada 
 		glm::mat4 modelTemp2 = glm::mat4(1.0f); //Temp
 
 
@@ -205,14 +206,27 @@ int main() {
 
 		glBindVertexArray(VAO);
 		
-		//Model 
-		model = glm::rotate(model, glm::radians(hombro), glm::vec3(0.0f, 0.0, 1.0f)); //hombro
-		modelTemp = model = glm::translate(model, glm::vec3(1.5f, 0.0f, 0.0f));
+		//Model bicep
+		model = glm::rotate(model, glm::radians(hombro), glm::vec3(0.0f, 0.0, 1.0f)); //rotamos al hombro en z
+		modelTemp = model = glm::translate(model, glm::vec3(1.5f, 0.0f, 0.0f)); //aqui guardamos la información del modelo para el brazo, y después lo movemos a la posición del brazo
 		model = glm::scale(model, glm::vec3(3.0f, 1.0f, 1.0f));
-		color = glm::vec3(0.0f, 1.0f, 0.0f);
+		color = glm::vec3(0.0f, 1.0f, 0.0f); //genera un color diferente para el brazo
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);//A
+
+		//model antebrazo
+		model = glm::translate(modelTemp, glm::vec3(1.5f, 0.0f, 0.0f)); //movemos el antebrazo a la posición del brazo
+		model = glm::rotate(model, glm::radians(codo),glm::vec3(0.0f, 1.0f, 0.0f));
+		modelTemp = model = glm::translate(model, glm::vec3(1.0f, 0.0f, 0.0f)); //guardamos la información del antebrazo y lo movemos a la posición del antebrazo
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f));
+		color = glm::vec3(1.0f, 0.0f, 0.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//B
+
+
+
 
 
 		glBindVertexArray(0);
@@ -234,17 +248,17 @@ int main() {
 	 if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)  //GLFW_RELEASE
 		 glfwSetWindowShouldClose(window, true);
 	 if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		 movX += 0.08f;
+		 movX += 0.008f;
 	 if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		 movX -= 0.08f;
+		 movX -= 0.008f;
 	 if (glfwGetKey(window,GLFW_KEY_UP) == GLFW_PRESS)
-		 movY += 0.08f;
+		 movY += 0.008f;
 	 if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		 movY -= 0.08f;
+		 movY -= 0.008f;
 	 if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		 movZ -= 0.08f;
+		 movZ += 0.008f;
 	 if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		 movZ += 0.08f;
+		 movZ -= 0.008f;
 	 if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
 		 rot += 0.18f;
 	 if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
@@ -253,6 +267,10 @@ int main() {
 		 hombro += 0.18f;
 	 if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
 		 hombro -= 0.18f;
+	 if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+		 codo += 0.18f;
+	 if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
+		 codo -= 0.18f;
  }
 
 
