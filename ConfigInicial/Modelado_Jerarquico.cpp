@@ -216,7 +216,7 @@ int main() {
 		model = glm::rotate(model, glm::radians(hombro), glm::vec3(0.0f, 0.0, 1.0f)); //rotamos al hombro en z
 		modelTemp = model = glm::translate(model, glm::vec3(1.5f, 0.0f, 0.0f)); //aqui guardamos la información del modelo para el brazo, y después lo movemos a la posición del brazo
 		model = glm::scale(model, glm::vec3(3.0f, 1.0f, 1.0f));
-		color = glm::vec3(0.0f, 1.0f, 0.0f); //genera un color diferente para el brazo
+		color = glm::vec3(0.2f, 0.5f, 0.8f); //genera un color diferente para el brazo
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);//A
@@ -243,46 +243,67 @@ int main() {
 		glDrawArrays(GL_TRIANGLES, 0, 36);//C
 
 		
-		//model dedo 1 A
-		model = glm::translate(modelTemp, glm::vec3(0.25f, 0.35f, 0.375f)); //movemos el dedo a la posición de la palma
+		//model falange 1 A
+		model = glm::translate(modelTemp, glm::vec3(0.25f, 0.0f, 0.375f)); //movemos el dedo a la posición de la palma
 		model = glm::rotate(model, glm::radians(dedo1), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
+		model = glm::scale(model, glm::vec3(1.0f, 0.2f, 0.15f));
 		color = glm::vec3(0.0f, 1.0f, 1.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);//D
 
 		
-		//model dedo 1 B
+		//model falange 1 B
 		model = glm::translate(modelTemp, glm::vec3(0.5f, 0.0f, 0.0f)); //movemos el dedo a la posición de la palma
 		model = glm::rotate(model, glm::radians(dedo2), glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f)); 
-		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
+		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f)); 
+		model = glm::scale(model, glm::vec3(1.0f, 0.2f, 0.15f));
 		color = glm::vec3(1.0f, 0.0f, 1.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);//E
 
-		//model dedo 2 A
-		model = glm::translate(modelTemp2, glm::vec3(0.25f, 0.35f, -0.375f)); //movemos el dedo a la posición de la palma
+		//model falange 1 C
+		model = glm::translate(modelTemp, glm::vec3(0.5f, 0.0f, 0.0f)); 
 		model = glm::rotate(model, glm::radians(dedo3), glm::vec3(0.0f, 0.0f, 1.0f));
-		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
-		color = glm::vec3(0.0f, 1.0f, 1.0f);
+		model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 0.2f, 0.15f));
+		color = glm::vec3(0.5f, 1.0f, 0.7f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);//F
 
-		//model dedo 2 B
-		model = glm::translate(modelTemp, glm::vec3(0.5f, 0.0f, 0.0f)); //movemos el dedo a la posición de la palma
-		model = glm::rotate(model, glm::radians(dedo4), glm::vec3(0.0f, 0.0f, 1.0f));
-		model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(1.0f, 0.3f, 0.25f));
-		color = glm::vec3(1.0f, 0.0f, 1.0f);
+
+		//model falange 2 A
+		model = glm::translate(modelTemp2, glm::vec3(0.25f, 0.0f, -0.375f)); //movemos el dedo a la posición de la palma
+		model = glm::rotate(model, glm::radians(dedo1), glm::vec3(0.0f, 0.0f, 1.0f));
+		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 0.2f, 0.15f));
+		color = glm::vec3(0.0f, 1.0f, 1.0f);
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);//G
+
+		//model falange 2 B
+		model = glm::translate(modelTemp, glm::vec3(0.5f, 0.0f, 0.0f)); //movemos el dedo a la posición de la palma
+		model = glm::rotate(model, glm::radians(dedo2), glm::vec3(0.0f, 0.0f, 1.0f));
+		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 0.2f, 0.15f));
+		color = glm::vec3(1.0f, 0.0f, 1.0f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//H
+
+		//model falange 2 C
+		model = glm::translate(modelTemp, glm::vec3(0.5f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(dedo3), glm::vec3(0.0f, 0.0f, 1.0f));
+		model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.0f, 0.2f, 0.15f));
+		color = glm::vec3(0.5f, 1.0f, 0.7f);
+		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);//H
 
 
 		glBindVertexArray(0);
