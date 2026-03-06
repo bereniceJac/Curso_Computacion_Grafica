@@ -32,8 +32,7 @@ codo = 0.0f, //nos va a permitir mover el antebrazo
 muneca = 0.0f, //nos va a permitir mover la palma
 dedo1 = 0.0f,
 dedo2 = 0.0f,
-dedo3 = 0.0f,
-dedo4 =0.0f;
+dedo3 = 0.0f;
 
 
 
@@ -434,34 +433,31 @@ int main() {
 		 rot += 0.18f;
 	 if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
 		 rot -= 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+	 if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS && hombro < 90.0f)
 		 hombro += 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
+	 if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS && hombro > -90.0f)
 		 hombro -= 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
+	 if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS && codo < 150.0f)
 		 codo += 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
+	 if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS && codo > 0.0f)
 		 codo -= 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
+	 if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS && muneca < 60.0f)
 		 muneca += 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
+	 if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS && muneca > -60.0f)
 		 muneca -= 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
+	 if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS && dedo1 < 60.0f) //esta dobla demasiado
 		 dedo1 += 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS)
+	 if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS && dedo1 > -10.0f)
 		 dedo1 -= 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
+	 if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS && dedo2 < 90.0f)
 		 dedo2 += 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
+	 if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS && dedo2 > 0.0f)
 		 dedo2 -= 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
+	 if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS && dedo3 < 90.0f)
 		 dedo3 += 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
+	 if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS && dedo3 > 0.0f)
 		 dedo3 -= 0.18f;
-	 /*if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-		 dedo4 += 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS)
-		 dedo4 -= 0.18f;*/
+	 
  }
 
 
