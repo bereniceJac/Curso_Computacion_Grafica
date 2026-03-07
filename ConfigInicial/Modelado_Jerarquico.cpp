@@ -1,6 +1,6 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 01/03/2025
+* Fecha: 06/03/2025
 * Practica 5: Modelado Jerarquico
 /*/
 
@@ -243,7 +243,10 @@ int main() {
 
 		
 		//model falange 1 A
-		model = glm::translate(modelTemp, glm::vec3(0.25f, 0.0f, 0.375f)); //movemos el dedo a la posición de la palma
+		model = modelTemp2;
+		model = glm::translate(model, glm::vec3(0.25f, 0.0f, 0.0f)); //movemos el dedo a la posición de la palma
+		model = glm::rotate(model, glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.35f, 0.0f));
 		model = glm::rotate(model, glm::radians(dedo1), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 0.2f, 0.15f));
@@ -275,7 +278,10 @@ int main() {
 
 
 		//model falange 2 A
-		model = glm::translate(modelTemp2, glm::vec3(0.25f, 0.0f, -0.375f)); 
+		model = modelTemp2;
+		model = glm::translate(model, glm::vec3(0.25f, 0.0f, 0.0f)); //movemos el dedo a la posición de la palma
+		model = glm::rotate(model, glm::radians(72.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.35f, 0.0f));
 		model = glm::rotate(model, glm::radians(dedo1), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 0.2f, 0.15f));
@@ -305,7 +311,10 @@ int main() {
 		glDrawArrays(GL_TRIANGLES, 0, 36);//I
 
 		//model falange 3 A
-		model = glm::translate(modelTemp2, glm::vec3(0.25f, 0.4f, 0.0f)); 
+		model = modelTemp2;
+		model = glm::translate(model, glm::vec3(0.25f, 0.0f, 0.0f)); //movemos el dedo a la posición de la palma
+		model = glm::rotate(model, glm::radians(144.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.35f, 0.0f));
 		model = glm::rotate(model, glm::radians(dedo1), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 0.2f, 0.15f));
@@ -337,7 +346,10 @@ int main() {
 
 
 		//model falange 4 A
-		model = glm::translate(modelTemp2, glm::vec3(0.25f, -0.4f, 0.15f));
+		model = modelTemp2;
+		model = glm::translate(model, glm::vec3(0.25f, 0.0f, 0.0f)); //movemos el dedo a la posición de la palma
+		model = glm::rotate(model, glm::radians(216.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.35f, 0.0f));
 		model = glm::rotate(model, glm::radians(dedo1), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 0.2f, 0.15f));
@@ -368,7 +380,10 @@ int main() {
 
 
 		//model falange 5 A
-		model = glm::translate(modelTemp2, glm::vec3(0.25f, -0.4f, -0.2f));
+		model = modelTemp2;
+		model = glm::translate(model, glm::vec3(0.25f, 0.0f, 0.0f)); //movemos el dedo a la posición de la palma
+		model = glm::rotate(model, glm::radians(288.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(0.0f, 0.35f, 0.0f));
 		model = glm::rotate(model, glm::radians(dedo1), glm::vec3(0.0f, 0.0f, 1.0f));
 		modelTemp = model = glm::translate(model, glm::vec3(0.5f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.0f, 0.2f, 0.15f));
@@ -397,6 +412,8 @@ int main() {
 		glUniform3fv(uniformColor, 1, glm::value_ptr(color));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);//R
+
+
 
 
 		glBindVertexArray(0);
@@ -445,19 +462,18 @@ int main() {
 		 muneca += 0.18f;
 	 if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS && muneca > -60.0f)
 		 muneca -= 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS && dedo1 < 60.0f) //esta dobla demasiado
+	 if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS && dedo1 < 35.0f)
 		 dedo1 += 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS && dedo1 > -10.0f)
+	 if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS && dedo1 > 0.0f)
 		 dedo1 -= 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS && dedo2 < 90.0f)
-		 dedo2 += 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS && dedo2 > 0.0f)
+	if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS && dedo2 > -35.0f)
 		 dedo2 -= 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS && dedo3 < 90.0f)
-		 dedo3 += 0.18f;
-	 if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS && dedo3 > 0.0f)
+	 if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS && dedo2 < 0.0f)
+		 dedo2 += 0.18f;
+	if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS && dedo3 > -35.0f)
 		 dedo3 -= 0.18f;
-	 
+	 if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS && dedo3 < 0.0f)
+		 dedo3 += 0.18f;
  }
 
 
