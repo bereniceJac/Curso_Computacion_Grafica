@@ -38,7 +38,7 @@ void DoMovement( );
 
 
 // Camera
-Camera camera( glm::vec3( 0.0f, 0.0f, 3.0f ) );
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f)); //posicion inicial de la camara, en el origen
 bool keys[1024];
 GLfloat lastX = 400, lastY = 300;
 bool firstMouse = true;
@@ -100,6 +100,7 @@ int main( )
     Shader shader( "Shader/modelLoading.vs", "Shader/modelLoading.frag" );
     
     // Load models
+    Model dog((char*)"Models/RedDog.obj"); //dentro de ese archivo ya se encuentra el RedDog.mtl y dentro de ese está la ruta de mi textura
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
   
@@ -129,6 +130,18 @@ int main( )
         // Draw the loaded model
         glm::mat4 model(1);
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        dog.Draw(shader);
+		
+        //modificaciones del previo para agregar otro modelo del mismo perro pero con diferente tamaño y posición
+        model = glm::mat4(1.0f);
+        model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 2.5f)); 
+        model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        model=glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        dog.Draw(shader);
+
+        
         
 
         // Swap the buffers
@@ -209,4 +222,3 @@ void MouseCallback( GLFWwindow *window, double xPos, double yPos )
     
     camera.ProcessMouseMovement( xOffset, yOffset );
 }
-
