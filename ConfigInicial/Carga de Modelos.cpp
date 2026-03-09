@@ -1,6 +1,6 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: XX/03/2025
+* Fecha: 09/03/2025
 * Previo 6: Carga de modelos y camara sintetica
 /*/
 
