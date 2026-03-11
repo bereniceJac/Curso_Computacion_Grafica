@@ -1,7 +1,7 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 09/03/2025
-* Previo 6: Carga de modelos y camara sintetica
+* Fecha: XX/03/2025
+* Practuca 6: Carga de modelos y camara sintetica
 /*/
 
 // Std. Includes
@@ -101,6 +101,7 @@ int main( )
     
     // Load models
     Model dog((char*)"Models/RedDog.obj"); //dentro de ese archivo ya se encuentra el RedDog.mtl y dentro de ese está la ruta de mi textura
+    Model chair((char*)"Models/Chair.obj");
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
   
@@ -141,28 +142,13 @@ int main( )
 
         // Draw the loaded model
         glm::mat4 model(1);
-        model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 2.5f));
-        model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Lo volteamos para ver al centro
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         dog.Draw(shader);
 
-        //modificando al perro para que gire alrededor del centro, lo alejamos un poco y lo volteamos para verlo desde el frente
-        model = glm::mat4(1.0f);
-        model = glm::rotate(model, glm::radians(120.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 2.5f));
-        model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Lo volteamos
+        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        dog.Draw(shader);
-
-        //un perro mas en diferente posicion
-        model = glm::mat4(1.0f);
-        model = glm::rotate(model, glm::radians(240.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 2.5f));
-        model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 1.0f, 0.0f));  // Lo volteamos
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        dog.Draw(shader);
-
+		chair.Draw(shader);
 
         // Swap the buffers
         glfwSwapBuffers( window );
