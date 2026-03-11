@@ -100,8 +100,8 @@ int main( )
     Shader shader( "Shader/modelLoading.vs", "Shader/modelLoading.frag" );
     
     // Load models
-    Model dog((char*)"Models/RedDog.obj"); //dentro de ese archivo ya se encuentra el RedDog.mtl y dentro de ese está la ruta de mi textura
-    Model chair((char*)"Models/Chair.obj");
+    Model dog((char*)"Models/dog/RedDog.obj"); //dentro de ese archivo ya se encuentra el RedDog.mtl y dentro de ese está la ruta de mi textura
+    Model chair((char*)"Models/chair/Chair.obj");
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
   
