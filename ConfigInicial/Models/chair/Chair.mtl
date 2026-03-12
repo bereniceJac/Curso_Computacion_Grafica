@@ -4,3 +4,5 @@ Kd 0.00 0.00 0.00
 Ka 0.00 0.00 0.00
 Tf 1.00 1.00 1.00
 Ni 0.00
+map_Kd chair_ao.png
+map_Kd chair_basecolor.png

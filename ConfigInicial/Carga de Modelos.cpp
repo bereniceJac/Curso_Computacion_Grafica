@@ -102,6 +102,8 @@ int main( )
     // Load models
     Model dog((char*)"Models/dog/RedDog.obj"); //dentro de ese archivo ya se encuentra el RedDog.mtl y dentro de ese está la ruta de mi textura
     Model chair((char*)"Models/chair/Chair.obj");
+    Model desk((char*)"Models/desk/metal_table.obj");
+    //Model pc((char*)"Models/pc/MacBook.obj");
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
   
@@ -141,14 +143,31 @@ int main( )
 
 
         // Draw the loaded model
-        glm::mat4 model(1);
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        glm::mat4 modelDog = glm::mat4(1.0f);
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelDog));
         dog.Draw(shader);
 
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 2.5f));
-        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        //chair
+        glm::mat4 modelChair = glm::mat4(1.0f);
+        modelChair = glm::translate(modelChair, glm::vec3(0.0f, -0.9f, 0.0f));
+        modelChair = glm::scale(modelChair, glm::vec3(0.03f, 0.03f, 0.03f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelChair));
 		chair.Draw(shader);
+
+        //desk
+        glm::mat4 modelDesk = glm::mat4(1.0f);
+        modelDesk = glm::translate(modelDesk, glm::vec3(0.0f, -0.88f, 0.8f));
+        modelDesk = glm::scale(modelDesk, glm::vec3(0.03f, 0.02f, 0.03f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelDesk));
+        desk.Draw(shader);
+
+        //pc
+        /*glm::mat4 modelPC = glm::mat4(1.0f);
+        modelPC = glm::translate(modelPC, glm::vec3(0.2f, -0.88f, 0.16f));
+        modelPC = glm::scale(modelPC, glm::vec3(0.05f, 0.05f, 0.05f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelPC));
+        pc.Draw(shader);*/
+
 
         // Swap the buffers
         glfwSwapBuffers( window );
