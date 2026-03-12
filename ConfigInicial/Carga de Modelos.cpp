@@ -103,7 +103,7 @@ int main( )
     Model dog((char*)"Models/dog/RedDog.obj"); //dentro de ese archivo ya se encuentra el RedDog.mtl y dentro de ese está la ruta de mi textura
     Model chair((char*)"Models/chair/Chair.obj");
     Model desk((char*)"Models/desk/metal_table.obj");
-    //Model pc((char*)"Models/pc/MacBook.obj");
+    Model pc((char*)"Models/pc/MacBookPro.obj");
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
   
@@ -162,11 +162,12 @@ int main( )
         desk.Draw(shader);
 
         //pc
-        /*glm::mat4 modelPC = glm::mat4(1.0f);
-        modelPC = glm::translate(modelPC, glm::vec3(0.2f, -0.88f, 0.16f));
+        glm::mat4 modelPC = glm::mat4(1.0f);
+        modelPC = glm::translate(modelPC, glm::vec3(0.07f, -0.16f, 0.9f));
+        modelPC = glm::rotate(modelPC, glm::radians(-135.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         modelPC = glm::scale(modelPC, glm::vec3(0.05f, 0.05f, 0.05f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelPC));
-        pc.Draw(shader);*/
+        pc.Draw(shader);
 
 
         // Swap the buffers
