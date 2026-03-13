@@ -1,6 +1,6 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: XX/03/2025
+* Fecha: 13/03/2025
 * Practuca 6: Carga de modelos y camara sintetica
 /*/
 
@@ -107,6 +107,8 @@ int main( )
     Model notebook((char*)"Models/notebook/Notebook.obj");
     Model folder((char*)"Models/folder/Folder.obj");
     Model lamp((char*)"Models/lamp/Lamp.obj");
+    Model tulip((char*)"Models/plant/Plant.obj");
+    Model frogCup((char*)"Models/frogCup/Frog_Cup.obj");
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
   
@@ -176,7 +178,6 @@ int main( )
         glm::mat4 modelNotebook = glm::mat4(1.0f); //revisar las texturas de este
         modelNotebook = glm::translate(modelNotebook, glm::vec3(-0.22f, -0.16f, 0.8f));
         modelNotebook = glm::rotate(modelNotebook, glm::radians(-150.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelNotebook = glm::scale(modelNotebook, glm::vec3(1.0f, 1.0f, 1.0f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelNotebook));
         notebook.Draw(shader);
         
@@ -194,6 +195,22 @@ int main( )
         modelLamp = glm::scale(modelLamp, glm::vec3(0.008f, 0.008f, 0.008f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelLamp));
         lamp.Draw(shader);
+
+		//plant
+        glm::mat4 modelPlant = glm::mat4(1.0f);
+        modelPlant = glm::translate(modelPlant, glm::vec3(-0.6f, -0.17f, 1.2f));
+        modelPlant = glm::scale(modelPlant, glm::vec3(0.005f, 0.005f, 0.005f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelPlant));
+        tulip.Draw(shader);
+
+		//frogCup
+        glm::mat4 modelfrogC = glm::mat4(1.0f);
+        modelfrogC = glm::translate(modelfrogC, glm::vec3(-0.3f, -0.17f, 0.6f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelfrogC));
+        frogCup.Draw(shader);
+
+
+
 
         // Swap the buffers
         glfwSwapBuffers( window );
