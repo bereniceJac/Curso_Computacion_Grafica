@@ -146,33 +146,62 @@ int main()
 	glBindVertexArray(0);
 
 	// Load textures
-	GLuint texture1;
+	/*GLuint texture1;
 	glGenTextures(1, &texture1);
-	glBindTexture(GL_TEXTURE_2D,texture1);
+	glBindTexture(GL_TEXTURE_2D,texture1);*/
 	int textureWidth, textureHeight,nrChannels;
-	stbi_set_flip_vertically_on_load(true); //nos ayuda a voltear el origen
-	unsigned char *image;
+	//stbi_set_flip_vertically_on_load(true); //nos ayuda a voltear el origen
+	//unsigned char *image;
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 	// Diffuse map
-	image = stbi_load("images/window.png", &textureWidth, &textureHeight, &nrChannels,0);
-	glBindTexture(GL_TEXTURE_2D, texture1);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-	glGenerateMipmap(GL_TEXTURE_2D); 
-	if (image)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	//image = stbi_load("images/window.png", &textureWidth, &textureHeight, &nrChannels,0);
+	//glBindTexture(GL_TEXTURE_2D, texture1);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	//glGenerateMipmap(GL_TEXTURE_2D); 
+	//if (image)
+	//{
+	//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	//	glGenerateMipmap(GL_TEXTURE_2D);
+	//}
+	//else
+	//{
+	//	std::cout << "Failed to load texture" << std::endl;
+	//}
+	//stbi_image_free(image);
+
+	//textura sin transparencia
+	unsigned int texturaNormal;
+	glGenTextures(1, &texturaNormal);
+	glBindTexture(GL_TEXTURE_2D, texturaNormal);
+	int width, height;
+	unsigned char* dataNormal = stbi_load("images/madera.png", &width, &height, &nrChannels, 0);
+	if (dataNormal) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataNormal);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
-	else
-	{
-		std::cout << "Failed to load texture" << std::endl;
+	else {
+		std::cout << "Fallo al cargar la textura normal" << std::endl;
 	}
-	stbi_image_free(image);
+	stbi_image_free(dataNormal);
 
-	
+	//textura con transparencia
+	unsigned int texturaTransparente;
+	glGenTextures(1, &texturaTransparente);
+	glBindTexture(GL_TEXTURE_2D, texturaTransparente);
+	unsigned char* dataTransparente = stbi_load("images/bubble.png", &width, &height, &nrChannels, 0);
+
+	if (dataTransparente) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, dataTransparente);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else {
+		std::cout << "Fallo al cargar la textura transparente" << std::endl;
+	}
+	stbi_image_free(dataTransparente);
+
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
@@ -204,7 +233,12 @@ int main()
 
 		// Bind diffuse map
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture1);
+		glBindTexture(GL_TEXTURE_2D, texturaNormal);
+
+		//moviendo la textura normal a la izquierda
+		glm::mat4 modelNormal = glm::mat4(1.0f);
+		modelNormal = glm::translate(modelNormal, glm::vec3(-1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelNormal));
 
 		// Set matrices
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
@@ -213,6 +247,17 @@ int main()
 		// Draw the light object (using light's vertex attributes)
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		
+		//dibujando la textura transparente a la derecha
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texturaTransparente);
+
+		glm::mat4 modelTransparente = glm::mat4(1.0f);
+		modelTransparente = glm::translate(modelTransparente, glm::vec3(1.0f, 0.0f, 0.0f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelTransparente));
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+
 		glBindVertexArray(0);
 
 		// Swap the screen buffers
