@@ -1,8 +1,8 @@
 
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 17/03/2025
-* Previo 7: Texturizado
+* Fecha: 18/03/2025
+* Practica 7: Texturizado
 /*/
 #include <iostream>
 #include <cmath>
@@ -103,23 +103,85 @@ int main()
 	Shader lampShader("Shader/lamp.vs", "Shader/lamp.frag");
 
 	// Set up vertex data (and buffer(s)) and attribute pointers
-	GLfloat vertices[] =
-	{
-		// Positions            // Colors              // Texture Coords
-		-0.5f, -0.5f, 0.0f,    1.0f, 1.0f,1.0f,		0.0f,0.0f, //esquina inferior izquierda
-		0.5f, -0.5f, 0.0f,	   1.0f, 1.0f,1.0f,		1.0f,0.0f, //esquina inferior derecha
-		0.5f,  0.5f, 0.0f,     1.0f, 1.0f,1.0f,	    1.0f,1.0f, // esquina superior derecha
-		-0.5f,  0.5f, 0.0f,    1.0f, 1.0f,1.0f,		0.0f,1.0f // esquina superior izquierda
+	//GLfloat vertices[] =
+	//{
+	//	// Positions            // Colors              // Texture Coords
+	//	//-0.5f, -0.5f, 0.0f,    1.0f, 1.0f,1.0f,		0.0f,0.0f, //esquina inferior izquierda
+	//	//0.5f, -0.5f, 0.0f,	   1.0f, 1.0f,1.0f,		1.0f,0.0f, //esquina inferior derecha
+	//	//0.5f,  0.5f, 0.0f,     1.0f, 1.0f,1.0f,	    1.0f,1.0f, // esquina superior derecha
+	//	//-0.5f,  0.5f, 0.0f,    1.0f, 1.0f,1.0f,		0.0f,1.0f // esquina superior izquierda
 
-		
+
+
+	//	
+	//};
+
+	// Set up vertex data (and buffer(s)) and attribute pointers
+	// Set up vertex data (and buffer(s)) and attribute pointers
+	GLfloat vertices[] = {
+		// Positions            // Colors             // Texture Coords (UV)
+
+		// --- Cara Frontal (Morada, número 5) ---
+		// Esta cara está en la columna 2 (0.5 a 0.75) y fila 1 (0.333 a 0.666)
+		-0.5f, -0.5f,  0.5f,    1.0f, 0.0f, 0.0f,     0.50f, 0.333f, // Inf Izq
+		 0.5f, -0.5f,  0.5f,    1.0f, 0.0f, 0.0f,     0.75f, 0.333f, // Inf Der
+		 0.5f,  0.5f,  0.5f,    1.0f, 0.0f, 0.0f,     0.75f, 0.666f, // Sup Der
+		 0.5f,  0.5f,  0.5f,    1.0f, 0.0f, 0.0f,     0.75f, 0.666f, // Sup Der
+		-0.5f,  0.5f,  0.5f,    1.0f, 0.0f, 0.0f,     0.50f, 0.666f, // Sup Izq
+		-0.5f, -0.5f,  0.5f,    1.0f, 0.0f, 0.0f,     0.50f, 0.333f, // Inf Izq
+
+		// --- Cara Trasera (Gris, número 1) ---
+		// Esta cara está en la columna 0 (0.0 a 0.25) y fila 1 (0.333 a 0.666)
+		-0.5f, -0.5f, -0.5f,    0.0f, 1.0f, 0.0f,     0.25f, 0.333f, // Inf Der (Invertida por estar atrás)
+		 0.5f, -0.5f, -0.5f,    0.0f, 1.0f, 0.0f,     0.00f, 0.333f, // Inf Izq
+		 0.5f,  0.5f, -0.5f,    0.0f, 1.0f, 0.0f,     0.00f, 0.666f, // Sup Izq
+		 0.5f,  0.5f, -0.5f,    0.0f, 1.0f, 0.0f,     0.00f, 0.666f, // Sup Izq
+		-0.5f,  0.5f, -0.5f,    0.0f, 1.0f, 0.0f,     0.25f, 0.666f, // Sup Der
+		-0.5f, -0.5f, -0.5f,    0.0f, 1.0f, 0.0f,     0.25f, 0.333f, // Inf Der
+
+		// --- Cara Superior (Azul, número 6) ---
+		// Esta cara está en la columna 2 (0.5 a 0.75) y fila 2 (0.666 a 1.0)
+		 0.5f,  0.5f,  0.5f,    0.0f, 0.0f, 1.0f,     0.75f, 0.666f, // Inf Der (Vista desde arriba)
+		 0.5f,  0.5f, -0.5f,    0.0f, 0.0f, 1.0f,     0.75f, 1.000f, // Sup Der
+		-0.5f,  0.5f, -0.5f,    0.0f, 0.0f, 1.0f,     0.50f, 1.000f, // Sup Izq
+		-0.5f,  0.5f, -0.5f,    0.0f, 0.0f, 1.0f,     0.50f, 1.000f, // Sup Izq
+		-0.5f,  0.5f,  0.5f,    0.0f, 0.0f, 1.0f,     0.50f, 0.666f, // Inf Izq
+		 0.5f,  0.5f,  0.5f,    0.0f, 0.0f, 1.0f,     0.75f, 0.666f, // Inf Der
+
+		 // --- Cara Izquierda (Rosa, número 2) ---
+		 // Esta cara está en la columna 1 (0.25 a 0.5) y fila 1 (0.333 a 0.666)
+		 -0.5f,  0.5f,  0.5f,    1.0f, 1.0f, 0.0f,     0.50f, 0.666f, // Sup Der
+		 -0.5f,  0.5f, -0.5f,    1.0f, 1.0f, 0.0f,     0.25f, 0.666f, // Sup Izq
+		 -0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 0.0f,     0.25f, 0.333f, // Inf Izq
+		 -0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 0.0f,     0.25f, 0.333f, // Inf Izq
+		 -0.5f, -0.5f,  0.5f,    1.0f, 1.0f, 0.0f,     0.50f, 0.333f, // Inf Der
+		 -0.5f,  0.5f,  0.5f,    1.0f, 1.0f, 0.0f,     0.50f, 0.666f, // Sup Der
+
+		 // --- Cara Inferior (Roja, número 4) ---
+		 // Esta cara está en la columna 2 (0.5 a 0.75) y fila 0 (0.0 a 0.333)
+		 -0.5f, -0.5f, -0.5f,    0.0f, 1.0f, 1.0f,     0.50f, 0.000f, // Inf Izq (Vista desde abajo)
+		  0.5f, -0.5f, -0.5f,    0.0f, 1.0f, 1.0f,     0.75f, 0.000f, // Inf Der
+		  0.5f, -0.5f,  0.5f,    0.0f, 1.0f, 1.0f,     0.75f, 0.333f, // Sup Der
+		  0.5f, -0.5f,  0.5f,    0.0f, 1.0f, 1.0f,     0.75f, 0.333f, // Sup Der
+		 -0.5f, -0.5f,  0.5f,    0.0f, 1.0f, 1.0f,     0.50f, 0.333f, // Sup Izq
+		 -0.5f, -0.5f, -0.5f,    0.0f, 1.0f, 1.0f,     0.50f, 0.000f, // Inf Izq
+
+		 // --- Cara Derecha (Verde, número 3) ---
+		 // Esta cara está en la columna 3 (0.75 a 1.0) y fila 1 (0.333 a 0.666)
+		  0.5f,  0.5f, -0.5f,    1.0f, 0.2f, 0.5f,     1.00f, 0.666f, // Sup Der
+		  0.5f, -0.5f, -0.5f,    1.0f, 0.2f, 0.5f,     1.00f, 0.333f, // Inf Der
+		  0.5f, -0.5f,  0.5f,    1.0f, 0.2f, 0.5f,     0.75f, 0.333f, // Inf Izq
+		  0.5f, -0.5f,  0.5f,    1.0f, 0.2f, 0.5f,     0.75f, 0.333f, // Inf Izq
+		  0.5f,  0.5f,  0.5f,    1.0f, 0.2f, 0.5f,     0.75f, 0.666f, // Sup Izq
+		  0.5f,  0.5f, -0.5f,    1.0f, 0.2f, 0.5f,     1.00f, 0.666f, // Sup Der
 	};
 
-	GLuint indices[] =
-	{  // Note that we start from 0!
-		0,1,3,
-		1,2,3
-	
-	};
+	//GLuint indices[] =
+	//{  // Note that we start from 0!
+	//	0,1,3,
+	//	1,2,3
+	//
+	//};
 
 	// First, set the container's VAO (and VBO)
 	GLuint VBO, VAO,EBO;
@@ -131,8 +193,8 @@ int main()
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	//glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	// Position attribute
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)0);
@@ -146,61 +208,61 @@ int main()
 	glBindVertexArray(0);
 
 	// Load textures
-	/*GLuint texture1;
+	GLuint texture1;
 	glGenTextures(1, &texture1);
-	glBindTexture(GL_TEXTURE_2D,texture1);*/
+	glBindTexture(GL_TEXTURE_2D,texture1);
 	int textureWidth, textureHeight,nrChannels;
-	//stbi_set_flip_vertically_on_load(true); //nos ayuda a voltear el origen
-	//unsigned char *image;
+	stbi_set_flip_vertically_on_load(true); //nos ayuda a voltear el origen
+	unsigned char *image;
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 	// Diffuse map
-	//image = stbi_load("images/window.png", &textureWidth, &textureHeight, &nrChannels,0);
-	//glBindTexture(GL_TEXTURE_2D, texture1);
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-	//glGenerateMipmap(GL_TEXTURE_2D); 
-	//if (image)
-	//{
-	//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-	//	glGenerateMipmap(GL_TEXTURE_2D);
-	//}
-	//else
-	//{
-	//	std::cout << "Failed to load texture" << std::endl;
-	//}
-	//stbi_image_free(image);
+	image = stbi_load("images/dado.png", &textureWidth, &textureHeight, &nrChannels,0);
+	glBindTexture(GL_TEXTURE_2D, texture1);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D); 
+	if (image)
+	{
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	}
+	else
+	{
+		std::cout << "Failed to load texture" << std::endl;
+	}
+	stbi_image_free(image);
 
 	//textura sin transparencia
-	unsigned int texturaNormal;
-	glGenTextures(1, &texturaNormal);
-	glBindTexture(GL_TEXTURE_2D, texturaNormal);
-	int width, height;
-	unsigned char* dataNormal = stbi_load("images/madera.png", &width, &height, &nrChannels, 0);
-	if (dataNormal) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataNormal);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else {
-		std::cout << "Fallo al cargar la textura normal" << std::endl;
-	}
-	stbi_image_free(dataNormal);
+	//unsigned int texturaNormal;
+	//glGenTextures(1, &texturaNormal);
+	//glBindTexture(GL_TEXTURE_2D, texturaNormal);
+	//int width, height;
+	//unsigned char* dataNormal = stbi_load("images/madera.png", &width, &height, &nrChannels, 0);
+	//if (dataNormal) {
+	//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, dataNormal);
+	//	glGenerateMipmap(GL_TEXTURE_2D);
+	//}
+	//else {
+	//	std::cout << "Fallo al cargar la textura normal" << std::endl;
+	//}
+	//stbi_image_free(dataNormal);
 
-	//textura con transparencia
-	unsigned int texturaTransparente;
-	glGenTextures(1, &texturaTransparente);
-	glBindTexture(GL_TEXTURE_2D, texturaTransparente);
-	unsigned char* dataTransparente = stbi_load("images/bubble.png", &width, &height, &nrChannels, 0);
+	////textura con transparencia
+	//unsigned int texturaTransparente;
+	//glGenTextures(1, &texturaTransparente);
+	//glBindTexture(GL_TEXTURE_2D, texturaTransparente);
+	//unsigned char* dataTransparente = stbi_load("images/bubble.png", &width, &height, &nrChannels, 0);
 
-	if (dataTransparente) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, dataTransparente);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else {
-		std::cout << "Fallo al cargar la textura transparente" << std::endl;
-	}
-	stbi_image_free(dataTransparente);
+	//if (dataTransparente) {
+	//	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, dataTransparente);
+	//	glGenerateMipmap(GL_TEXTURE_2D);
+	//}
+	//else {
+	//	std::cout << "Fallo al cargar la textura transparente" << std::endl;
+	//}
+	//stbi_image_free(dataTransparente);
 
 
 	// Game loop
@@ -233,32 +295,36 @@ int main()
 
 		// Bind diffuse map
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texturaNormal);
+		glBindTexture(GL_TEXTURE_2D, texture1);
 
 		//moviendo la textura normal a la izquierda
-		glm::mat4 modelNormal = glm::mat4(1.0f);
+		/*glm::mat4 modelNormal = glm::mat4(1.0f);
 		modelNormal = glm::translate(modelNormal, glm::vec3(-1.0f, 0.0f, 0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelNormal));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelNormal));*/
 
 		// Set matrices
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		// Draw the light object (using light's vertex attributes)
-		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		//Draw the light object (using light's vertex attributes)
 		
 		//dibujando la textura transparente a la derecha
-		glActiveTexture(GL_TEXTURE0);
+		/*glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texturaTransparente);
 
 		glm::mat4 modelTransparente = glm::mat4(1.0f);
 		modelTransparente = glm::translate(modelTransparente, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelTransparente));
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);*/
 
 
+		//para dibujar el cubo
+		glBindVertexArray(VAO);
+		
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);
+
+
 
 		// Swap the screen buffers
 		glfwSwapBuffers(window);
