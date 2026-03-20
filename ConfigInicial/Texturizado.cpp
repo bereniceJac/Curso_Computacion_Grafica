@@ -1,7 +1,7 @@
 
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 18/03/2025
+* Fecha: 20/03/2025
 * Practica 7: Texturizado
 /*/
 #include <iostream>
@@ -118,62 +118,63 @@ int main()
 
 	// Set up vertex data (and buffer(s)) and attribute pointers
 	// Set up vertex data (and buffer(s)) and attribute pointers
+	// Set up vertex data (and buffer(s)) and attribute pointers
 	GLfloat vertices[] = {
 		// Positions            // Colors             // Texture Coords (UV)
 
-		// --- Cara Frontal (Morada, número 5) ---
-		// Esta cara está en la columna 2 (0.5 a 0.75) y fila 1 (0.333 a 0.666)
-		-0.5f, -0.5f,  0.5f,    1.0f, 0.0f, 0.0f,     0.50f, 0.333f, // Inf Izq
-		 0.5f, -0.5f,  0.5f,    1.0f, 0.0f, 0.0f,     0.75f, 0.333f, // Inf Der
-		 0.5f,  0.5f,  0.5f,    1.0f, 0.0f, 0.0f,     0.75f, 0.666f, // Sup Der
-		 0.5f,  0.5f,  0.5f,    1.0f, 0.0f, 0.0f,     0.75f, 0.666f, // Sup Der
-		-0.5f,  0.5f,  0.5f,    1.0f, 0.0f, 0.0f,     0.50f, 0.666f, // Sup Izq
-		-0.5f, -0.5f,  0.5f,    1.0f, 0.0f, 0.0f,     0.50f, 0.333f, // Inf Izq
+		// Cara frontal = 6
+		// columna 3, fila 2
+		-0.5f, -0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.498f, 0.261f, // Inf Izq
+		 0.5f, -0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.748f, 0.261f, // Inf Der
+		 0.5f,  0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.748f, 0.498f, // Sup Der
+		 0.5f,  0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.748f, 0.498f, // Sup Der
+		-0.5f,  0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.498f, 0.498f, // Sup Izq
+		-0.5f, -0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.498f, 0.261f, // Inf Izq
 
-		// --- Cara Trasera (Gris, número 1) ---
-		// Esta cara está en la columna 0 (0.0 a 0.25) y fila 1 (0.333 a 0.666)
-		-0.5f, -0.5f, -0.5f,    0.0f, 1.0f, 0.0f,     0.25f, 0.333f, // Inf Der (Invertida por estar atrás)
-		 0.5f, -0.5f, -0.5f,    0.0f, 1.0f, 0.0f,     0.00f, 0.333f, // Inf Izq
-		 0.5f,  0.5f, -0.5f,    0.0f, 1.0f, 0.0f,     0.00f, 0.666f, // Sup Izq
-		 0.5f,  0.5f, -0.5f,    0.0f, 1.0f, 0.0f,     0.00f, 0.666f, // Sup Izq
-		-0.5f,  0.5f, -0.5f,    0.0f, 1.0f, 0.0f,     0.25f, 0.666f, // Sup Der
-		-0.5f, -0.5f, -0.5f,    0.0f, 1.0f, 0.0f,     0.25f, 0.333f, // Inf Der
+		// Cara de atras = 1
+		// columna 1, fila 2 
+		-0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 1.0f,     0.248f, 0.261f, // Inf Der (Invertida por estar atrás)
+		 0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 1.0f,    -0.002f, 0.261f, // Inf Izq
+		 0.5f,  0.5f, -0.5f,    1.0f, 1.0f, 1.0f,    -0.002f, 0.498f, // Sup Izq
+		 0.5f,  0.5f, -0.5f,    1.0f, 1.0f, 1.0f,    -0.002f, 0.498f, // Sup Izq
+		-0.5f,  0.5f, -0.5f,    1.0f, 1.0f, 1.0f,     0.248f, 0.498f, // Sup Der
+		-0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 1.0f,     0.248f, 0.261f, // Inf Der
 
-		// --- Cara Superior (Azul, número 6) ---
-		// Esta cara está en la columna 2 (0.5 a 0.75) y fila 2 (0.666 a 1.0)
-		 0.5f,  0.5f,  0.5f,    0.0f, 0.0f, 1.0f,     0.75f, 0.666f, // Inf Der (Vista desde arriba)
-		 0.5f,  0.5f, -0.5f,    0.0f, 0.0f, 1.0f,     0.75f, 1.000f, // Sup Der
-		-0.5f,  0.5f, -0.5f,    0.0f, 0.0f, 1.0f,     0.50f, 1.000f, // Sup Izq
-		-0.5f,  0.5f, -0.5f,    0.0f, 0.0f, 1.0f,     0.50f, 1.000f, // Sup Izq
-		-0.5f,  0.5f,  0.5f,    0.0f, 0.0f, 1.0f,     0.50f, 0.666f, // Inf Izq
-		 0.5f,  0.5f,  0.5f,    0.0f, 0.0f, 1.0f,     0.75f, 0.666f, // Inf Der
+		// Cara de arriba = 3
+		// columna 3 , fila 3
+		 0.5f,  0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.748f, 0.498f, // Inf Der (Vista desde arriba)
+		 0.5f,  0.5f, -0.5f,    1.0f, 1.0f, 1.0f,     0.748f, 0.748f, // Sup Der
+		-0.5f,  0.5f, -0.5f,    1.0f, 1.0f, 1.0f,     0.498f, 0.748f, // Sup Izq
+		-0.5f,  0.5f, -0.5f,    1.0f, 1.0f, 1.0f,     0.498f, 0.748f, // Sup Izq
+		-0.5f,  0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.498f, 0.498f, // Inf Izq
+		 0.5f,  0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.748f, 0.498f, // Inf Der
 
-		 // --- Cara Izquierda (Rosa, número 2) ---
-		 // Esta cara está en la columna 1 (0.25 a 0.5) y fila 1 (0.333 a 0.666)
-		 -0.5f,  0.5f,  0.5f,    1.0f, 1.0f, 0.0f,     0.50f, 0.666f, // Sup Der
-		 -0.5f,  0.5f, -0.5f,    1.0f, 1.0f, 0.0f,     0.25f, 0.666f, // Sup Izq
-		 -0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 0.0f,     0.25f, 0.333f, // Inf Izq
-		 -0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 0.0f,     0.25f, 0.333f, // Inf Izq
-		 -0.5f, -0.5f,  0.5f,    1.0f, 1.0f, 0.0f,     0.50f, 0.333f, // Inf Der
-		 -0.5f,  0.5f,  0.5f,    1.0f, 1.0f, 0.0f,     0.50f, 0.666f, // Sup Der
+		 // Cara Izquierda = 2
+		 // columna 2 , fila 2
+		 -0.5f,  0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.498f, 0.498f, // Sup Der
+		 -0.5f,  0.5f, -0.5f,    1.0f, 1.0f, 1.0f,     0.248f, 0.498f, // Sup Izq
+		 -0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 1.0f,     0.248f, 0.248f, // Inf Izq
+		 -0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 1.0f,     0.248f, 0.248f, // Inf Izq
+		 -0.5f, -0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.498f, 0.248f, // Inf Der
+		 -0.5f,  0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.498f, 0.498f, // Sup Der
 
-		 // --- Cara Inferior (Roja, número 4) ---
-		 // Esta cara está en la columna 2 (0.5 a 0.75) y fila 0 (0.0 a 0.333)
-		 -0.5f, -0.5f, -0.5f,    0.0f, 1.0f, 1.0f,     0.50f, 0.000f, // Inf Izq (Vista desde abajo)
-		  0.5f, -0.5f, -0.5f,    0.0f, 1.0f, 1.0f,     0.75f, 0.000f, // Inf Der
-		  0.5f, -0.5f,  0.5f,    0.0f, 1.0f, 1.0f,     0.75f, 0.333f, // Sup Der
-		  0.5f, -0.5f,  0.5f,    0.0f, 1.0f, 1.0f,     0.75f, 0.333f, // Sup Der
-		 -0.5f, -0.5f,  0.5f,    0.0f, 1.0f, 1.0f,     0.50f, 0.333f, // Sup Izq
-		 -0.5f, -0.5f, -0.5f,    0.0f, 1.0f, 1.0f,     0.50f, 0.000f, // Inf Izq
+		 // Cara de abajo = 4
+		 // columna 3, fila 1
+		 -0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 1.0f,     0.498f, -0.002f, // Inf Izq (Vista desde abajo)
+		  0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 1.0f,     0.748f, -0.002f, // Inf Der
+		  0.5f, -0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.748f,  0.248f, // Sup Der
+		  0.5f, -0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.748f,  0.248f, // Sup Der
+		 -0.5f, -0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.498f,  0.248f, // Sup Izq
+		 -0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 1.0f,     0.498f, -0.002f, // Inf Izq
 
-		 // --- Cara Derecha (Verde, número 3) ---
-		 // Esta cara está en la columna 3 (0.75 a 1.0) y fila 1 (0.333 a 0.666)
-		  0.5f,  0.5f, -0.5f,    1.0f, 0.2f, 0.5f,     1.00f, 0.666f, // Sup Der
-		  0.5f, -0.5f, -0.5f,    1.0f, 0.2f, 0.5f,     1.00f, 0.333f, // Inf Der
-		  0.5f, -0.5f,  0.5f,    1.0f, 0.2f, 0.5f,     0.75f, 0.333f, // Inf Izq
-		  0.5f, -0.5f,  0.5f,    1.0f, 0.2f, 0.5f,     0.75f, 0.333f, // Inf Izq
-		  0.5f,  0.5f,  0.5f,    1.0f, 0.2f, 0.5f,     0.75f, 0.666f, // Sup Izq
-		  0.5f,  0.5f, -0.5f,    1.0f, 0.2f, 0.5f,     1.00f, 0.666f, // Sup Der
+		 //Cara Derecha = 5
+		 // columna 4 , fila 2 
+		  0.5f,  0.5f, -0.5f,    1.0f, 1.0f, 1.0f,     0.998f, 0.498f, // Sup Der
+		  0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 1.0f,     0.998f, 0.261f, // Inf Der
+		  0.5f, -0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.748f, 0.261f, // Inf Izq
+		  0.5f, -0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.748f, 0.261f, // Inf Izq
+		  0.5f,  0.5f,  0.5f,    1.0f, 1.0f, 1.0f,     0.748f, 0.498f, // Sup Izq
+		  0.5f,  0.5f, -0.5f,    1.0f, 1.0f, 1.0f,     0.998f, 0.498f, // Sup Der
 	};
 
 	//GLuint indices[] =
@@ -320,7 +321,6 @@ int main()
 
 		//para dibujar el cubo
 		glBindVertexArray(VAO);
-		
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		glBindVertexArray(0);
 
