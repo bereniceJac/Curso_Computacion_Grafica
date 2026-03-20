@@ -108,6 +108,7 @@ int main()
 
     // Load models
     Model red_dog((char*)"Models/dog/RedDog.obj");
+    Model dog_house((char*)"Models/dogHouse/dogHouse.obj");
     glm::mat4 projection = glm::perspective(camera.GetZoom(), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
 
     float vertices[] = {
@@ -251,6 +252,14 @@ int main()
         red_dog.Draw(lightingShader);
         //glDrawArrays(GL_TRIANGLES, 0, 36);
         
+        //modelo de la casita del perro
+        glm::mat4 modeldogHouse(1.0f);
+        modeldogHouse = glm::translate(modeldogHouse, glm::vec3(-3.0f, -1.2f, -4.0f));
+		modeldogHouse = glm::rotate(modeldogHouse, glm::radians(30.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modeldogHouse = glm::scale(modeldogHouse, glm::vec3(4.0f, 4.0f, 4.0f));
+        glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modeldogHouse));
+		dog_house.Draw(lightingShader);
+
 
         glBindVertexArray(0);
 
