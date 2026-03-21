@@ -25,11 +25,14 @@ out vec4 color;
 uniform vec3 viewPos;
 uniform Material material;
 uniform Light light;
+uniform Light light2;
+
 
 uniform sampler2D texture_diffusse;
 
 void main()
 {
+    //luz del perro
     // Ambient
     vec3 ambient = light.ambient *material.diffuse;
     
@@ -45,6 +48,22 @@ void main()
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     vec3 specular = light.specular * (spec * material.specular);
     
-    vec3 result = ambient + diffuse + specular;
+    
+    // Ambient 2
+    vec3 ambient2 = light2.ambient *material.diffuse;
+    
+    // Diffuse 2
+    vec3 lightDir2 = normalize(light2.position - FragPos);
+    float diff2 = max(dot(norm, lightDir2), 0.0);
+    vec3 diffuse2 = light2.diffuse * diff2 * material.diffuse;
+    
+    // Specular 2
+    vec3 reflectDir2 = reflect(-lightDir2, norm);
+    float spec2 = pow(max(dot(viewDir, reflectDir2), 0.0), material.shininess);
+    vec3 specular2 = light2.specular * (spec2 * material.specular);
+    
+
+    //resultado final
+    vec3 result = (ambient + diffuse + specular) + (ambient2 + diffuse2 + specular2);
     color = vec4(result, 1.0f)*texture(texture_diffusse,TexCoords);
 }
