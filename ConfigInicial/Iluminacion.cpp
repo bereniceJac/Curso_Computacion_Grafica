@@ -1,7 +1,7 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 20/03/2025
-* Previo 8: Materiales e Iluminacion
+* Fecha: 25/03/2025
+* Practica 8: Materiales e Iluminacion
 /*/
 
 // Std. Includes
@@ -44,10 +44,12 @@ bool firstMouse = true;
 
 
 // Light attributes
-glm::vec3 lightPos(0.5f, 0.5f, 2.5f);
-glm::vec3 lightPos2(-2.5f, 1.5f, -1.0f); // segunda luz
-float movelightPos = 0.0f;
-float movelightPos2 = 0.0f;
+//glm::vec3 lightPos(0.5f, 0.5f, 2.5f);
+//glm::vec3 lightPos2(-2.5f, 1.5f, -1.0f); // segunda luz
+//float movelightPos = 0.0f;
+//float movelightPos2 = 0.0f; 
+float orbitAngle = 0.0f;     // Ángulo de rotación para las luces
+float orbitRadius = 3.0f;  //radio de la órbita
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
 float rot = 0.0f;
@@ -119,6 +121,7 @@ int main()
     Model lamp((char*)"Models/lamp/Lamp.obj");
     Model tulip((char*)"Models/plant/Plant.obj");
     Model frogCup((char*)"Models/frogCup/Frog_Cup.obj");
+    Model sphere((char*)"Models/sphere/sphere.obj");
     glm::mat4 projection = glm::perspective(camera.GetZoom(), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 100.0f);
 
     float vertices[] = {
@@ -224,25 +227,40 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        
+
+		//para el sol
+        glm::vec3 dynamicLightPos1 = glm::vec3(
+            sin(glm::radians(orbitAngle)) * orbitRadius,
+            cos(glm::radians(orbitAngle)) * orbitRadius,
+            0.0f
+        );
+
+		//para la luna
+        glm::vec3 dynamicLightPos2 = glm::vec3(
+            sin(glm::radians(orbitAngle + 180.0f)) * orbitRadius,
+            cos(glm::radians(orbitAngle + 180.0f)) * orbitRadius,
+            0.0f
+        );
+
         lightingShader.Use();
         GLint lightPosLoc = glGetUniformLocation(lightingShader.Program, "light.position");
         GLint viewPosLoc = glGetUniformLocation(lightingShader.Program, "viewPos");
-        glUniform3f(lightPosLoc, lightPos.x + movelightPos, lightPos.y + movelightPos, lightPos.z + movelightPos);
+       // glUniform3f(lightPosLoc, lightPos.x + movelightPos, lightPos.y + movelightPos, lightPos.z + movelightPos);
         glUniform3f(viewPosLoc, camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
 
 
         // Set lights properties
 		// luz 1
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 0.3f, 0.3f, 0.3f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), 0.2f, 0.7f, 0.8f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 0.3f, 0.6f, 0.4f);
+        glUniform3f(lightPosLoc, dynamicLightPos1.x, dynamicLightPos1.y, dynamicLightPos1.z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 0.5f, 0.5f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), 0.9f, 0.9f, 0.8f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 1.0f, 1.0f, 1.0f);
 
 		// luz 2
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.position"), lightPos2.x + movelightPos2, lightPos2.y + movelightPos2, lightPos2.z + movelightPos2);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.ambient"), 1.0f, 0.5f, 0.8f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.diffuse"), 0.8f, 0.3f, 0.8f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.specular"), 1.0f, 0.5f, 1.0f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.position"), dynamicLightPos2.x, dynamicLightPos2.y, dynamicLightPos2.z);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.ambient"), 0.1f, 0.1f, 0.3f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.diffuse"), 0.2f, 0.2f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.specular"), 0.3f, 0.3f, 0.5f);
 
 
         glm::mat4 view = camera.GetViewMatrix();
@@ -331,6 +349,13 @@ int main()
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelfrogC));
         frogCup.Draw(shader);
         
+		//sphere no se ve la fokin sphere, revisar
+        /*glm::mat4 modelSphere = glm::mat4(1.0f);
+        modelSphere = glm::translate(modelSphere, glm::vec3(0.0f, 1.3f, 0.0f));
+        modelSphere = glm::scale(modelSphere, glm::vec3(0.1f, 0.1f, 0.1f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelSphere));
+        sphere.Draw(shader);*/
+
         glBindVertexArray(0);
 
 
@@ -339,21 +364,21 @@ int main()
         lampshader.Use();
         glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+        
         //luz 1
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, lightPos + movelightPos);
-        model = glm::scale(model, glm::vec3(0.3f));
-        glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-        glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glm::mat4 modelSun = glm::mat4(1.0f);
+        modelSun = glm::translate(modelSun, dynamicLightPos1);
+        modelSun = glm::scale(modelSun, glm::vec3(0.1f));
+        glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelSun));
+		sphere.Draw(lampshader);
 
 
         // dibuja la luz 2
-        glm::mat4 modelLamp2 = glm::mat4(1.0f);
-        modelLamp2 = glm::translate(modelLamp2, lightPos2 + movelightPos2);
-        modelLamp2 = glm::scale(modelLamp2, glm::vec3(0.3f));
-        glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelLamp2));
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glm::mat4 modelMoon = glm::mat4(1.0f);
+        modelMoon = glm::translate(modelMoon, dynamicLightPos2);
+        modelMoon = glm::scale(modelMoon, glm::vec3(0.1f));
+        glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelMoon));
+		sphere.Draw(lampshader);
 
 
         glBindVertexArray(0);
@@ -422,7 +447,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
         }
     }
 
-    if (keys[GLFW_KEY_I])
+    /*if (keys[GLFW_KEY_I])
     {
        
         movelightPos += 0.1f;
@@ -444,8 +469,13 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
     {
 
         movelightPos2 -= 0.1f;
+    }*/
+    if (keys[GLFW_KEY_O])
+    {
+        orbitAngle += 1.0f; // Aumenta el ángulo para hacerlos girar
+        
+        if (orbitAngle > 360.0f) orbitAngle -= 360.0f;
     }
-
 }
 
 void MouseCallback(GLFWwindow* window, double xPos, double yPos)
