@@ -49,7 +49,7 @@ bool firstMouse = true;
 //float movelightPos = 0.0f;
 //float movelightPos2 = 0.0f; 
 float orbitAngle = 0.0f;     // Ángulo de rotación para las luces
-float orbitRadius = 3.0f;  //radio de la órbita
+float orbitRadius = 2.0f;  //radio de la órbita
 GLfloat deltaTime = 0.0f;
 GLfloat lastFrame = 0.0f;
 float rot = 0.0f;
@@ -227,16 +227,18 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        glm::vec3 orbitCenter = glm::vec3(0.0f, -0.5f, 0.0f);
+
 
 		//para el sol
-        glm::vec3 dynamicLightPos1 = glm::vec3(
+        glm::vec3 dynamicLightPos1 = orbitCenter + glm::vec3(
             sin(glm::radians(orbitAngle)) * orbitRadius,
             cos(glm::radians(orbitAngle)) * orbitRadius,
             0.0f
         );
 
 		//para la luna
-        glm::vec3 dynamicLightPos2 = glm::vec3(
+        glm::vec3 dynamicLightPos2 = orbitCenter + glm::vec3(
             sin(glm::radians(orbitAngle + 180.0f)) * orbitRadius,
             cos(glm::radians(orbitAngle + 180.0f)) * orbitRadius,
             0.0f
@@ -252,15 +254,15 @@ int main()
         // Set lights properties
 		// luz 1
         glUniform3f(lightPosLoc, dynamicLightPos1.x, dynamicLightPos1.y, dynamicLightPos1.z);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 0.5f, 0.5f, 0.5f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), 0.9f, 0.9f, 0.8f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 0.2f, 0.2f, 0.2f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), 1.0f, 0.9f, 0.7f);
         glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 1.0f, 1.0f, 1.0f);
 
 		// luz 2
         glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.position"), dynamicLightPos2.x, dynamicLightPos2.y, dynamicLightPos2.z);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.ambient"), 0.1f, 0.1f, 0.3f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.diffuse"), 0.2f, 0.2f, 0.5f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.specular"), 0.3f, 0.3f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.ambient"), 0.05f, 0.05f, 0.015f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.diffuse"), 0.2f, 0.2f, 0.4f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.specular"), 0.2f, 0.2f, 0.5f);
 
 
         glm::mat4 view = camera.GetViewMatrix();
@@ -268,17 +270,17 @@ int main()
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
         // Set material properties
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.ambient"), 0.8f, 0.2f, 0.4f);        
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.diffuse"), 0.7f, 0.2f, 0.4f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "material.specular"), 0.6f, 0.6f, 0.6f);
-        glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 1.0f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.ambient"), 1.0f, 1.0f, 1.0f);        
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "material.diffuse"), 1.0f, 1.0f, 1.0f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "material.specular"), 0.5f, 0.5f, 0.5f);
+        glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 32.0f);
 
          
 
 
 
         // Draw the loaded model
-        glm::mat4 model(1); //esta es la caja
+        glm::mat4 model(1); 
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         glBindVertexArray(VAO);
         red_dog.Draw(lightingShader);
@@ -286,9 +288,9 @@ int main()
         
         //modelo de la casita del perro
         glm::mat4 modeldogHouse(1.0f);
-        modeldogHouse = glm::translate(modeldogHouse, glm::vec3(-3.0f, -1.2f, -1.5f));
-		modeldogHouse = glm::rotate(modeldogHouse, glm::radians(30.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modeldogHouse = glm::scale(modeldogHouse, glm::vec3(2.0f, 2.0f, 2.0f));
+        modeldogHouse = glm::translate(modeldogHouse, glm::vec3(-0.001f, -0.7f, 0.9f));
+		//modeldogHouse = glm::rotate(modeldogHouse, glm::radians(30.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modeldogHouse = glm::scale(modeldogHouse, glm::vec3(3.5f, 2.5f, 2.5f));
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modeldogHouse));
 		dog_house.Draw(lightingShader);
 
@@ -370,7 +372,8 @@ int main()
         modelSun = glm::translate(modelSun, dynamicLightPos1);
         modelSun = glm::scale(modelSun, glm::vec3(0.1f));
         glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelSun));
-		sphere.Draw(lampshader);
+        glUniform3f(glGetUniformLocation(lampshader.Program, "lightColor"), 1.0f, 1.0f, 0.0f);
+        sphere.Draw(lampshader);
 
 
         // dibuja la luz 2
@@ -378,7 +381,8 @@ int main()
         modelMoon = glm::translate(modelMoon, dynamicLightPos2);
         modelMoon = glm::scale(modelMoon, glm::vec3(0.1f));
         glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelMoon));
-		sphere.Draw(lampshader);
+        glUniform3f(glGetUniformLocation(lampshader.Program, "lightColor"), 0.0f, 0.0f, 1.0f);
+        sphere.Draw(lampshader);
 
 
         glBindVertexArray(0);
