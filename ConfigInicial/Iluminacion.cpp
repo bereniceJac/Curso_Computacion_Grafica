@@ -1,6 +1,6 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 25/03/2025
+* Fecha: 27/03/2025
 * Practica 8: Materiales e Iluminacion
 /*/
 
@@ -227,7 +227,8 @@ int main()
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glm::vec3 orbitCenter = glm::vec3(0.0f, -0.5f, 0.0f);
+        //ubicación inicial del sol y la luna
+        glm::vec3 orbitCenter = glm::vec3(0.0f, -0.5f, 0.5f);
 
 
 		//para el sol
@@ -251,18 +252,20 @@ int main()
         glUniform3f(viewPosLoc, camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
 
 
+
+
         // Set lights properties
 		// luz 1
         glUniform3f(lightPosLoc, dynamicLightPos1.x, dynamicLightPos1.y, dynamicLightPos1.z);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 0.2f, 0.2f, 0.2f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), 1.0f, 0.9f, 0.7f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 1.0f, 1.0f, 1.0f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 0.1f, 0.1f, 0.1f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), 1.0f, 0.8f, 0.0f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 1.0f, 0.9f, 0.2f);
 
 		// luz 2
         glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.position"), dynamicLightPos2.x, dynamicLightPos2.y, dynamicLightPos2.z);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.ambient"), 0.05f, 0.05f, 0.015f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.diffuse"), 0.2f, 0.2f, 0.4f);
-        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.specular"), 0.2f, 0.2f, 0.5f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.ambient"), 0.1f, 0.1f, 0.2f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.diffuse"), 0.2f, 0.4f, 1.0f);
+        glUniform3f(glGetUniformLocation(lightingShader.Program, "light2.specular"), 0.5f, 0.7f, 1.0f);
 
 
         glm::mat4 view = camera.GetViewMatrix();
@@ -272,7 +275,7 @@ int main()
         // Set material properties
         glUniform3f(glGetUniformLocation(lightingShader.Program, "material.ambient"), 1.0f, 1.0f, 1.0f);        
         glUniform3f(glGetUniformLocation(lightingShader.Program, "material.diffuse"), 1.0f, 1.0f, 1.0f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "material.specular"), 0.5f, 0.5f, 0.5f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "material.specular"), 0.8f, 0.8f, 0.8f);
         glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 32.0f);
 
          
@@ -284,13 +287,12 @@ int main()
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
         glBindVertexArray(VAO);
         red_dog.Draw(lightingShader);
-        //glDrawArrays(GL_TRIANGLES, 0, 36);
-        
+
+
         //modelo de la casita del perro
         glm::mat4 modeldogHouse(1.0f);
-        modeldogHouse = glm::translate(modeldogHouse, glm::vec3(-0.001f, -0.7f, 0.9f));
-		//modeldogHouse = glm::rotate(modeldogHouse, glm::radians(30.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modeldogHouse = glm::scale(modeldogHouse, glm::vec3(3.5f, 2.5f, 2.5f));
+        modeldogHouse = glm::translate(modeldogHouse, glm::vec3(-0.001f, -0.9f, 0.5f));
+		modeldogHouse = glm::scale(modeldogHouse, glm::vec3(3.5f, 2.5f, 2.5f));
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modeldogHouse));
 		dog_house.Draw(lightingShader);
 
@@ -350,13 +352,8 @@ int main()
         modelfrogC = glm::translate(modelfrogC, glm::vec3(-0.3f, -0.17f, 0.6f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelfrogC));
         frogCup.Draw(shader);
-        
-		//sphere no se ve la fokin sphere, revisar
-        /*glm::mat4 modelSphere = glm::mat4(1.0f);
-        modelSphere = glm::translate(modelSphere, glm::vec3(0.0f, 1.3f, 0.0f));
-        modelSphere = glm::scale(modelSphere, glm::vec3(0.1f, 0.1f, 0.1f));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelSphere));
-        sphere.Draw(shader);*/
+     
+
 
         glBindVertexArray(0);
 
@@ -367,7 +364,7 @@ int main()
         glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
         
-        //luz 1
+        //luz de dia
         glm::mat4 modelSun = glm::mat4(1.0f);
         modelSun = glm::translate(modelSun, dynamicLightPos1);
         modelSun = glm::scale(modelSun, glm::vec3(0.1f));
@@ -376,7 +373,7 @@ int main()
         sphere.Draw(lampshader);
 
 
-        // dibuja la luz 2
+		// luz de noche
         glm::mat4 modelMoon = glm::mat4(1.0f);
         modelMoon = glm::translate(modelMoon, dynamicLightPos2);
         modelMoon = glm::scale(modelMoon, glm::vec3(0.1f));
@@ -480,6 +477,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
         
         if (orbitAngle > 360.0f) orbitAngle -= 360.0f;
     }
+    
 }
 
 void MouseCallback(GLFWwindow* window, double xPos, double yPos)
