@@ -1,3 +1,8 @@
+/* Jacinto Robledo Valeria Berenice
+* No. de Cuenta: 32005797-3
+* Fecha: 05/04/2026
+* Previo 9: Fuentes de luz
+/*/
 #include <iostream>
 #include <cmath>
 
@@ -155,8 +160,9 @@ int main()
 	Shader lampShader("Shader/lamp.vs", "Shader/lamp.frag");
 	
 	//Model Dog((char*)"Models/dog/RedDog.obj");
-	Model Dog((char*)"Models/ball/ball.obj");
+	Model Dog((char*)"Models/dog/RedDog.obj");
 	Model Piso((char*)"Models/piso/piso.obj");
+	Model Fence((char*)"Models/fence/Fence.obj");
 
 
 
@@ -309,12 +315,26 @@ int main()
 
 	
 		model = glm::mat4(1);
-		glEnable(GL_BLEND);//Activa la funcionalidad para trabajar el canal alfa
+		//glEnable(GL_BLEND);//Activa la funcionalidad para trabajar el canal alfa
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
 	    Dog.Draw(lightingShader);
-		glDisable(GL_BLEND);  //Desactiva el canal alfa 
+		//glDisable(GL_BLEND);  //Desactiva el canal alfa 
+		
+		//reja
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, -0.3f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.62f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
+		Fence.Draw(lightingShader);
+		glDisable(GL_BLEND);
+
+
+
 		glBindVertexArray(0);
 	
 

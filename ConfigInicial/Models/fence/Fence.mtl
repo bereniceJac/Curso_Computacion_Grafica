@@ -1,0 +1,62 @@
+# Blender MTL File: 'Fence set .blend'
+# Material Count: 5
+
+newmtl barbed_wire
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 1
+map_Kd Textures\barbed_wire.png
+map_d Textures\\barbed_wire.png
+
+newmtl fence
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 1
+map_Kd Textures\fence.png
+map_d Textures\\fence.png
+
+newmtl fence_fence.png.001
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 1
+map_Kd Textures\fence.png
+map_d Textures\\fence.png
+
+newmtl metal_baked.001
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.084906 0.084906 0.084906
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Textures\metal texture.png
+map_Bump -bm 0.418605 Textures\\metal texture.png
+
+newmtl metal_baked_2
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.075472 0.075472 0.075472
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd Textures\metal 2 texture.png
+map_Bump -bm 0.418605 Textures\\metal 2 texture.png
