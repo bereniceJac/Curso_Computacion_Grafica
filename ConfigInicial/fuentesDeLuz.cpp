@@ -1,7 +1,7 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 05/04/2026
-* Previo 9: Fuentes de luz
+* Fecha: 08/04/2026
+* Practica 9: Fuentes de luz
 /*/
 #include <iostream>
 #include <cmath>
@@ -161,8 +161,15 @@ int main()
 	
 	//Model Dog((char*)"Models/dog/RedDog.obj");
 	Model Dog((char*)"Models/dog/RedDog.obj");
-	Model Piso((char*)"Models/piso/piso.obj");
-	Model Fence((char*)"Models/fence/Fence.obj");
+	Model dog_house((char*)"Models/dogHouse/dogHouse.obj");
+	Model chair((char*)"Models/chair/Chair.obj");
+	Model desk((char*)"Models/desk/metal_table.obj");
+	Model pc((char*)"Models/pc/MacBookPro.obj");
+	Model notebook((char*)"Models/notebook/Notebook.obj");
+	Model folder((char*)"Models/folder/Folder.obj");
+	Model lamp((char*)"Models/lamp/Lamp.obj");
+	Model tulip((char*)"Models/plant/Plant.obj");
+	Model frogCup((char*)"Models/frogCup/Frog_Cup.obj");
 
 
 
@@ -302,37 +309,75 @@ int main()
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
 
+		//perro
 		glm::mat4 model(1);
-
-	
-
-		//Carga de modelo 
-        view = camera.GetViewMatrix();	
-		model = glm::mat4(1);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		Piso.Draw(lightingShader);
-
-
-	
-		model = glm::mat4(1);
-		//glEnable(GL_BLEND);//Activa la funcionalidad para trabajar el canal alfa
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
-	    Dog.Draw(lightingShader);
-		//glDisable(GL_BLEND);  //Desactiva el canal alfa 
+		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		glBindVertexArray(VAO);
+		Dog.Draw(lightingShader);
 		
-		//reja
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, -0.3f, 0.0f));
-		model = glm::scale(model, glm::vec3(0.62f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
-		Fence.Draw(lightingShader);
-		glDisable(GL_BLEND);
+		//casa del perro
+		glm::mat4 modeldogHouse(1.0f);
+		modeldogHouse = glm::translate(modeldogHouse, glm::vec3(-0.001f, -0.9f, 0.5f));
+		modeldogHouse = glm::scale(modeldogHouse, glm::vec3(3.5f, 2.5f, 2.5f));
+		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modeldogHouse));
+		dog_house.Draw(lightingShader);
 
+		//chair
+		glm::mat4 modelChair = glm::mat4(1.0f);
+		modelChair = glm::translate(modelChair, glm::vec3(0.0f, -0.9f, 0.0f));
+		modelChair = glm::scale(modelChair, glm::vec3(0.03f, 0.03f, 0.03f));
+		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelChair));
+		chair.Draw(lightingShader);
+
+		//desk
+		glm::mat4 modelDesk = glm::mat4(1.0f);
+		modelDesk = glm::translate(modelDesk, glm::vec3(0.0f, -0.88f, 0.8f));
+		modelDesk = glm::scale(modelDesk, glm::vec3(0.03f, 0.02f, 0.03f));
+		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelDesk));
+		desk.Draw(lightingShader);
+
+		//pc
+		glm::mat4 modelPC = glm::mat4(1.0f);
+		modelPC = glm::translate(modelPC, glm::vec3(0.07f, -0.16f, 0.9f));
+		modelPC = glm::rotate(modelPC, glm::radians(-135.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		modelPC = glm::scale(modelPC, glm::vec3(0.05f, 0.05f, 0.05f));
+		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelPC));
+		pc.Draw(lightingShader);
+
+		//notebook
+		glm::mat4 modelNotebook = glm::mat4(1.0f); //revisar las texturas de este
+		modelNotebook = glm::translate(modelNotebook, glm::vec3(-0.22f, -0.16f, 0.8f));
+		modelNotebook = glm::rotate(modelNotebook, glm::radians(-150.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelNotebook));
+		notebook.Draw(lightingShader);
+
+		//folder
+		glm::mat4 modelFolder = glm::mat4(1.0f);
+		modelFolder = glm::translate(modelFolder, glm::vec3(0.3f, -0.15f, 0.8f));
+		modelFolder = glm::scale(modelFolder, glm::vec3(0.005f, 0.005f, 0.005f));
+		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelFolder));
+		folder.Draw(lightingShader);
+
+		//lamp
+		glm::mat4 modelLamp = glm::mat4(1.0f);
+		modelLamp = glm::translate(modelLamp, glm::vec3(-0.4f, -0.16f, 1.0f));
+		modelLamp = glm::rotate(modelLamp, glm::radians(-180.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		modelLamp = glm::scale(modelLamp, glm::vec3(0.008f, 0.008f, 0.008f));
+		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelLamp));
+		lamp.Draw(lightingShader);
+
+		//plant
+		glm::mat4 modelPlant = glm::mat4(1.0f);
+		modelPlant = glm::translate(modelPlant, glm::vec3(-0.6f, -0.17f, 1.2f));
+		modelPlant = glm::scale(modelPlant, glm::vec3(0.005f, 0.005f, 0.005f));
+		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelPlant));
+		tulip.Draw(lightingShader);
+
+		//frogCup
+		glm::mat4 modelfrogC = glm::mat4(1.0f);
+		modelfrogC = glm::translate(modelfrogC, glm::vec3(-0.3f, -0.17f, 0.6f));
+		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelfrogC));
+		frogCup.Draw(lightingShader);
 
 
 		glBindVertexArray(0);
