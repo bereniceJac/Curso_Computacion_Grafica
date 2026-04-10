@@ -170,6 +170,7 @@ int main()
 	Model lamp((char*)"Models/lamp/Lamp.obj");
 	Model tulip((char*)"Models/plant/Plant.obj");
 	Model frogCup((char*)"Models/frogCup/Frog_Cup.obj");
+	Model sign((char*)"Models/sign/Sign.obj");
 
 
 
@@ -253,14 +254,14 @@ int main()
 
 
 
-		// Point light 2
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].position"), pointLightPositions[1].x, pointLightPositions[1].y, pointLightPositions[1].z);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].ambient"), 0.0f, 0.0f, 0.0f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].diffuse"), 0.0f, 0.0f, 0.0f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].specular"), 0.0f, 0.0f, 0.0f);
+		// Point light 2 para el letero
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].position"), 1.05f, -0.13f, 0.7f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].ambient"), 0.1f, 0.0f, 0.1f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].diffuse"), 1.0f, 0.0f, 0.8f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].specular"), 1.0f, 0.3f, 1.0f);
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].constant"), 1.0f);
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].linear"), 0.0f);
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].quadratic"), 0.0f);
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].linear"), 0.7f);
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].quadratic"), 2.0f);
 
 		// Point light 3
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].position"), pointLightPositions[2].x, pointLightPositions[2].y, pointLightPositions[2].z);
@@ -317,11 +318,11 @@ int main()
 		Dog.Draw(lightingShader);
 		
 		//casa del perro
-		/*glm::mat4 modeldogHouse(1.0f);
+		glm::mat4 modeldogHouse(1.0f);
 		modeldogHouse = glm::translate(modeldogHouse, glm::vec3(-0.001f, -0.9f, 0.5f));
 		modeldogHouse = glm::scale(modeldogHouse, glm::vec3(3.5f, 2.5f, 2.5f));
 		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modeldogHouse));
-		dog_house.Draw(lightingShader);*/
+		dog_house.Draw(lightingShader);
 
 		//chair
 		glm::mat4 modelChair = glm::mat4(1.0f);
@@ -379,6 +380,14 @@ int main()
 		modelfrogC = glm::translate(modelfrogC, glm::vec3(-0.3f, -0.17f, 0.6f));
 		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelfrogC));
 		frogCup.Draw(lightingShader);
+		
+		//sign
+		glm::mat4 modelSign = glm::mat4(1.0f);
+		modelSign = glm::translate(modelSign, glm::vec3(1.13f, -0.13f, 0.7f));
+		modelSign = glm::rotate(modelSign, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		modelSign = glm::scale(modelSign, glm::vec3(0.02f, 0.02f, 0.02f));
+		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelSign));
+		sign.Draw(lightingShader);
 
 
 		glBindVertexArray(0);

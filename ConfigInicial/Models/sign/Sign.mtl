@@ -1,0 +1,19 @@
+newmtl set1
+illum 2
+Ka 1.00 1.00 1.00
+Kd 1.00 1.00 1.00
+Ks 0.00 0.00 0.00
+Ke 1.00 1.00 1.00
+Ni 1.45
+d 1.0
+
+# Mapas de Textura
+map_Kd sign_basecolor.png
+map_Ka sign_ao.png
+map_Ke sign_emissive.png
+map_Bump -bm 1.0 sign_normal.png
+disp sign_height.png
+
+# Extensiones PBR (compatibles con motores modernos)
+map_Pm sign_metalness.png
+map_Pr sign_roughness.png
