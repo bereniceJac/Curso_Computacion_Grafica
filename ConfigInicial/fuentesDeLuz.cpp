@@ -1,6 +1,6 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 08/04/2026
+* Fecha: 10/04/2026
 * Practica 9: Fuentes de luz
 /*/
 #include <iostream>
@@ -244,24 +244,24 @@ int main()
 		lightColor.z= sin(glfwGetTime() *Light1.z);
 
 		
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].position"), 0.05f, -0.06f, 0.9f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].ambient"), 0.0f, 0.0f, 0.05f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].diffuse"), 0.0f, 0.2f, 1.0f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].specular"), 0.1f, 0.3f, 1.0f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].position"), 0.05f, -0.04f, 0.92f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].ambient"), 0.0f, 0.05f, 0.15f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].diffuse"), 0.0f, 0.4f, 1.0f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].specular"), 0.2f, 0.5f, 1.0f);
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[0].constant"), 1.0f);
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[0].linear"), 5.0f); //estos 3 me ayudan al factor de atenuación
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[0].quadratic"), 90.0f);
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[0].quadratic"), 35.0f);
 
 
 
 		// Point light 2 para el letero
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].position"), 1.05f, -0.13f, 0.7f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].ambient"), 0.1f, 0.0f, 0.1f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].diffuse"), 1.0f, 0.0f, 0.8f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].specular"), 1.0f, 0.3f, 1.0f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].position"), 1.05f, -0.03f, 0.7f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].ambient"), 0.1f, 0.05f, 0.0f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].diffuse"), 1.0f, 1.0f, 0.0f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[1].specular"), 1.0f, 1.0f, 0.0f);
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].constant"), 1.0f);
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].linear"), 0.7f);
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].quadratic"), 2.0f);
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].linear"), 1.0f);
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[1].quadratic"), 5.0f);
 
 		// Point light 3
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].position"), pointLightPositions[2].x, pointLightPositions[2].y, pointLightPositions[2].z);
@@ -282,17 +282,17 @@ int main()
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[3].quadratic"), 0.0f);
 
 		//desk lamp spotlight
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.position"), -0.4f, 0.1f, 1.0f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.direction"), -0.15f, -0.7f, -0.6f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.position"), -0.4f, 0.12f, 1.0f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.direction"), 0.1f, -0.6f, -0.8f);
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.ambient"), 0.1f, 0.1f, 0.1f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.diffuse"), 0.9f, 0.8f, 0.5f); // Un tono cálido/amarillento
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.diffuse"), 0.9f, 0.8f, 0.5f); 
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.specular"), 1.0f, 1.0f, 1.0f);
 
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.constant"), 1.0f);
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.linear"), 0.7f);
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.quadratic"), 2.5f);
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.cutOff"), glm::cos(glm::radians(14.0f)));
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.outerCutOff"), glm::cos(glm::radians(22.0f)));
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.cutOff"), glm::cos(glm::radians(12.0f)));
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.outerCutOff"), glm::cos(glm::radians(24.0f)));
 
 		// Set material properties
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 5.0f);
@@ -394,30 +394,23 @@ int main()
 	
 
 		//// Also draw the lamp object, again binding the appropriate shader
-		//lampShader.Use();
-		//// Get location objects for the matrices on the lamp shader (these could be different on a different shader)
-		//modelLoc = glGetUniformLocation(lampShader.Program, "model");
-		//viewLoc = glGetUniformLocation(lampShader.Program, "view");
-		//projLoc = glGetUniformLocation(lampShader.Program, "projection");
+		lampShader.Use();
+	
 
-		//// Set matrices
-		//glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		//glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-		//model = glm::mat4(1);
-		//model = glm::translate(model, lightPos);
-		//model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//// Draw the light object (using light's vertex attributes)
-		//for (GLuint i = 0; i < 4; i++)
-		//{
-		//	model = glm::mat4(1);
-		//	model = glm::translate(model, pointLightPositions[i]);
-		//	model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
-		//	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//	glBindVertexArray(VAO);
-		//	glDrawArrays(GL_TRIANGLES, 0, 36);
-		//}
-		//glBindVertexArray(0);
+
+
+		// Set matrices
+		glUniformMatrix4fv(glGetUniformLocation(lampShader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
+		glUniformMatrix4fv(glGetUniformLocation(lampShader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+		glm::mat4 modelFoco = glm::mat4(1.0f);
+		modelFoco = glm::translate(modelFoco, glm::vec3(-0.4f, 0.08f, 0.95f));
+		modelFoco = glm::scale(modelFoco, glm::vec3(0.015f)); 
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelFoco));
+		// Draw the light object (using light's vertex attributes)
+		glUniformMatrix4fv(glGetUniformLocation(lampShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(modelFoco)); 
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glBindVertexArray(0);
 
 
 
