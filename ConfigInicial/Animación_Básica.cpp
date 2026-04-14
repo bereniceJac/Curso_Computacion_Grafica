@@ -1,6 +1,6 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 13/04/2026
+* Fecha: 14/04/2026
 * Previo 10: Animación básica
 /*/
 
@@ -52,7 +52,7 @@ bool active;
 
 // Positions of the point lights
 glm::vec3 pointLightPositions[] = {
-	glm::vec3(0.0f,2.0f, 0.0f),
+	glm::vec3(0.0f,1.8f, 0.8f),
 	glm::vec3(0.0f,0.0f, 0.0f),
 	glm::vec3(0.0f,0.0f,  0.0f),
 	glm::vec3(0.0f,0.0f, 0.0f)
@@ -109,6 +109,12 @@ glm::vec3 Light1 = glm::vec3(0);
 float rotBall = 0;
 bool AnimBall = false;
 
+//variables para la traslacion
+float movBallY = 0.5f;
+bool ballGoingUp = true;  // Bandera de dirección
+float lightHeight = 2.0f; // para la altura de la luz
+float noseHeight = 0.3f;  // Altura mínima
+float speed = 1.5f;	//velocidad de la pelota
 
 
 // Deltatime
@@ -243,7 +249,7 @@ int main()
 		lightColor.z= sin(glfwGetTime() *Light1.z);
 
 		
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].position"), pointLightPositions[0].x, pointLightPositions[0].y, pointLightPositions[0].z);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].position"), 0.0f, 1.8f, 0.8f);
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].ambient"), lightColor.x,lightColor.y, lightColor.z);
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].diffuse"), lightColor.x,lightColor.y,lightColor.z);
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[0].specular"), 1.0f, 0.2f, 0.2f);
@@ -302,7 +308,8 @@ int main()
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
-		model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f)); //la animacion viene de aqui
+		model = glm::translate(model, glm::vec3(0.0f, movBallY, 0.8f));
+		//model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f)); //la animacion viene de aqui
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	    Ball.Draw(lightingShader);  //se manda la informacion al shader de la animacion
 		glDisable(GL_BLEND);  //Desactiva el canal alfa 
@@ -452,13 +459,24 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 void Animation() {
 	if (AnimBall)
 	{
-		rotBall += 0.2f;
-		printf("%f", rotBall); //imprime lo que tiene mi variable de rotacion para verificar que esta cambiando, se puede eliminar despues
+		//rotBall += 0.2f;
+		//printf("%f", rotBall); //imprime lo que tiene mi variable de rotacion para verificar que esta cambiando, se puede eliminar despues
+
+		//para la traslacion en Y
+		if (ballGoingUp) {
+			movBallY += speed * deltaTime;
+			if (movBallY >= lightHeight) {
+				ballGoingUp = false; // Topa con la luz, va para abajo
+			}
+		}
+		else {
+			movBallY -= speed * deltaTime;
+			if (movBallY <= noseHeight) {
+				ballGoingUp = true; // Topó con la nariz, va para arriba
+			}
+		}
 	}
-	else
-	{
-		//rotBall = 0.0f;
-	}
+
 }
 
 void MouseCallback(GLFWwindow *window, double xPos, double yPos)
