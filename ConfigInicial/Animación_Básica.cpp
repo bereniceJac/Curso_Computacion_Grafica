@@ -1,3 +1,9 @@
+/* Jacinto Robledo Valeria Berenice
+* No. de Cuenta: 32005797-3
+* Fecha: 13/04/2026
+* Previo 10: Animación básica
+/*/
+
 #include <iostream>
 #include <cmath>
 
@@ -104,6 +110,7 @@ float rotBall = 0;
 bool AnimBall = false;
 
 
+
 // Deltatime
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
 GLfloat lastFrame = 0.0f;  	// Time of last frame
@@ -120,7 +127,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);*/
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Animacion basica", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Jacinto Robledo - Animacion basica", nullptr, nullptr);
 
 	if (nullptr == window)
 	{
@@ -159,9 +166,9 @@ int main()
 	Shader lampShader("Shader/lamp.vs", "Shader/lamp.frag");
 	
 	//models
-	Model Dog((char*)"Models/RedDog.obj");
-	Model Piso((char*)"Models/piso.obj");
-	Model Ball((char*)"Models/ball.obj");
+	Model Dog((char*)"Models/dog/RedDog.obj");
+	Model Piso((char*)"Models/piso/piso.obj");
+	Model Ball((char*)"Models/ball/ball.obj");
 
 
 
@@ -295,9 +302,9 @@ int main()
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
-		model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f)); //la animacion viene de aqui
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	    Ball.Draw(lightingShader); 
+	    Ball.Draw(lightingShader);  //se manda la informacion al shader de la animacion
 		glDisable(GL_BLEND);  //Desactiva el canal alfa 
 		glBindVertexArray(0);
 	
@@ -423,9 +430,9 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 		}
 	}
 
-	if (keys[GLFW_KEY_SPACE])
+	if (keys[GLFW_KEY_SPACE]) //con esta se controla la luz, se activa o desactiva, y se le asigna un color o se apaga dependiendo del estado
 	{
-		active = !active;
+		active = !active; //bandera bool para controlar el estado de la luz, si esta activa o no, cada vez que se presiona el espacio se cambia su estado
 		if (active)
 		{
 			Light1 = glm::vec3(1.0f, 1.0f, 0.0f);
@@ -438,7 +445,7 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 	}
 	if (keys[GLFW_KEY_N])
 	{
-		AnimBall = !AnimBall;
+		AnimBall = !AnimBall; //bandera bool para controlar el estado de la animacion, si esta activa o no, cada vez que se presiona la letra N se cambia su estado
 		
 	}
 }
@@ -446,7 +453,7 @@ void Animation() {
 	if (AnimBall)
 	{
 		rotBall += 0.2f;
-		//printf("%f", rotBall);
+		printf("%f", rotBall); //imprime lo que tiene mi variable de rotacion para verificar que esta cambiando, se puede eliminar despues
 	}
 	else
 	{
