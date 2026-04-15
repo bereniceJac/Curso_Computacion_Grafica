@@ -115,6 +115,12 @@ bool ballGoingUp = true;  // Bandera de dirección
 float lightHeight = 2.0f; // para la altura de la luz
 float noseHeight = 0.3f;  // Altura mínima
 float speed = 1.5f;	//velocidad de la pelota
+// Variables para la rotación orbital
+float rotDog = 0.0f; //angulo actual del perro
+float orbitRadiusDog = 1.5f;//distancia del centro para el perro
+float orbitRadiusBall = 2.5f;//distancia del centro para la pelota
+float orbitSpeedDog = 0.8f; // velocidad angular del perro
+float orbitSpeedBall = 1.2f; // velocidad angular de la pelota
 
 
 // Deltatime
@@ -299,6 +305,8 @@ int main()
 		Piso.Draw(lightingShader);
 
 		model = glm::mat4(1);
+		model = glm::rotate(model, rotDog, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(orbitRadiusDog, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
 		Dog.Draw(lightingShader);
@@ -308,7 +316,8 @@ int main()
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
-		model = glm::translate(model, glm::vec3(0.0f, movBallY, 0.8f));
+		model = glm::rotate(model, rotBall, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(orbitRadiusBall, movBallY, 0.0f));
 		//model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f)); //la animacion viene de aqui
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	    Ball.Draw(lightingShader);  //se manda la informacion al shader de la animacion
@@ -459,10 +468,6 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 void Animation() {
 	if (AnimBall)
 	{
-		//rotBall += 0.2f;
-		//printf("%f", rotBall); //imprime lo que tiene mi variable de rotacion para verificar que esta cambiando, se puede eliminar despues
-
-		//para la traslacion en Y
 		if (ballGoingUp) {
 			movBallY += speed * deltaTime;
 			if (movBallY >= lightHeight) {
@@ -475,6 +480,8 @@ void Animation() {
 				ballGoingUp = true; // Topó con la nariz, va para arriba
 			}
 		}
+		rotDog += orbitSpeedDog * deltaTime;
+		rotBall -= orbitSpeedBall * deltaTime;
 	}
 
 }
