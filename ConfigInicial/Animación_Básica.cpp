@@ -110,7 +110,7 @@ float rotBall = 0;
 bool AnimBall = false;
 
 //variables para la traslacion
-float movBallY = 0.5f;
+float movBallY = 1.0f;
 bool ballGoingUp = true;  // Bandera de dirección
 float lightHeight = 2.0f; // para la altura de la luz
 float noseHeight = 0.3f;  // Altura mínima
@@ -118,7 +118,7 @@ float speed = 1.5f;	//velocidad de la pelota
 // Variables para la rotación orbital
 float rotDog = 0.0f; //angulo actual del perro
 float orbitRadiusDog = 1.5f;//distancia del centro para el perro
-float orbitRadiusBall = 2.5f;//distancia del centro para la pelota
+float orbitRadiusBall = 1.5f;//distancia del centro para la pelota
 float orbitSpeedDog = 0.8f; // velocidad angular del perro
 float orbitSpeedBall = 1.2f; // velocidad angular de la pelota
 
@@ -318,7 +318,6 @@ int main()
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
 		model = glm::rotate(model, rotBall, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::translate(model, glm::vec3(orbitRadiusBall, movBallY, 0.0f));
-		//model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f)); //la animacion viene de aqui
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 	    Ball.Draw(lightingShader);  //se manda la informacion al shader de la animacion
 		glDisable(GL_BLEND);  //Desactiva el canal alfa 
@@ -468,20 +467,8 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 void Animation() {
 	if (AnimBall)
 	{
-		if (ballGoingUp) {
-			movBallY += speed * deltaTime;
-			if (movBallY >= lightHeight) {
-				ballGoingUp = false; // Topa con la luz, va para abajo
-			}
-		}
-		else {
-			movBallY -= speed * deltaTime;
-			if (movBallY <= noseHeight) {
-				ballGoingUp = true; // Topó con la nariz, va para arriba
-			}
-		}
-		rotDog += orbitSpeedDog * deltaTime;
-		rotBall -= orbitSpeedBall * deltaTime;
+		rotDog -= orbitSpeedDog * deltaTime;
+		rotBall += orbitSpeedBall * deltaTime;
 	}
 
 }
