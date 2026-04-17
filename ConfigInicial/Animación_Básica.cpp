@@ -316,7 +316,6 @@ int main()
 		model = glm::mat4(1);
 		model = glm::rotate(model, rotDog - 0.15f, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::translate(model, glm::vec3(orbitRadiusDog, movDogY, 0.0f));
-		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, -0.4f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
 		Dog.Draw(lightingShader);
@@ -482,7 +481,7 @@ void Animation() {
 		rotDog -= orbitSpeedDog * deltaTime;
 		rotBall += orbitSpeedBall * deltaTime;
 
-		// 2. Lógica de la Pelota en el eje Y
+		// lógica de la Pelota en el eje Y (caida y rebote)
 		if (ballGoingUp) {
 			movBallY += speed * deltaTime;
 			if (movBallY >= maxBallY) {
@@ -497,18 +496,19 @@ void Animation() {
 				movBallY = minBallY;
 				ballGoingUp = true;
 			}
+			float timeToJump = dogJumpHeight / dogJumpSpeed; // Se calcula el tiempo que tarda el perro en llegar a su altura máxima
+			
+			float triggerHeight = minBallY + (speed * timeToJump);// Se calcula la altura exacta que debe tener la pelota para disparar el salto
+			
 
-			float timeToJump = dogJumpHeight / dogJumpSpeed;
-			float triggerHeight = minBallY + (speed * timeToJump);
-
-			// El perro solo "escucha" a la pelota para saber cuándo saltar
+			// gatillo para saber cuando el perro debe saltar, se activa cuando la pelota alcanza la altura del trigger, el perro no esta saltando y el perro esta en el suelo
 			if (movBallY <= triggerHeight && !dogIsJumping && movDogY == 0.0f) {
 				dogIsJumping = true;
 				dogGoingUp = true;
 			}
 		}
 
-		// 3. Lógica del Perro (¡También es independiente!)
+		// lógica del perro 
 		if (dogIsJumping) {
 			if (dogGoingUp) {
 				movDogY += dogJumpSpeed * deltaTime;
