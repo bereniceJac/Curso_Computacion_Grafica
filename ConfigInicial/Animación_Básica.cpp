@@ -1,7 +1,7 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 14/04/2026
-* Previo 10: Animación básica
+* Fecha: 17/04/2026
+* Practica 10: Animación básica
 /*/
 
 #include <iostream>
@@ -106,21 +106,28 @@ float vertices[] = {
 
 glm::vec3 Light1 = glm::vec3(0);
 //Anim
-float rotBall = 0;
+float rotBall = 3.14159f;
 bool AnimBall = false;
 
 //variables para la traslacion
-float movBallY = 1.0f;
-bool ballGoingUp = true;  // Bandera de dirección
-float lightHeight = 2.0f; // para la altura de la luz
-float noseHeight = 0.3f;  // Altura mínima
-float speed = 1.5f;	//velocidad de la pelota
-// Variables para la rotación orbital
+float maxBallY = 3.0f; // Altura máxima de la pelota
+float minBallY = 1.75f; // altura donde pega la pelota con el perro
+
+float movBallY = maxBallY;
+bool ballGoingUp = false;  // Bandera de dirección
+float speed = (maxBallY - minBallY) / 1.0f;	//velocidad de la pelota
+//variables para salto del perro y rebote de la pelota
+float movDogY = 0.0f; // Altura actual del perro
+float dogJumpHeight = 1.2f; // altura máxima del salto
+float dogJumpSpeed = 2.4f; // velocidad del salto del perro
+bool dogIsJumping = false; // bander para el salto del perro
+bool dogGoingUp = false;  // dirección del perro
+// variables para la rotación orbital
 float rotDog = 0.0f; //angulo actual del perro
-float orbitRadiusDog = 1.5f;//distancia del centro para el perro
-float orbitRadiusBall = 1.5f;//distancia del centro para la pelota
-float orbitSpeedDog = 0.8f; // velocidad angular del perro
-float orbitSpeedBall = 1.2f; // velocidad angular de la pelota
+float orbitRadiusDog = 2.0f;//distancia del centro para el perro
+float orbitRadiusBall = 2.0f;//distancia del centro para la pelota
+float orbitSpeedDog = 1.1416f; // velocidad angular del perro
+float orbitSpeedBall = 2.0f; // velocidad angular de la pelota
 
 
 // Deltatime
@@ -299,18 +306,22 @@ int main()
 	
 		
 		//Carga de modelo 
+		//piso
         view = camera.GetViewMatrix();	
 		model = glm::mat4(1);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		Piso.Draw(lightingShader);
 
+		//perro
 		model = glm::mat4(1);
-		model = glm::rotate(model, rotDog, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::translate(model, glm::vec3(orbitRadiusDog, 0.0f, 0.0f));
+		model = glm::rotate(model, rotDog - 0.15f, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(orbitRadiusDog, movDogY, 0.0f));
+		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, -0.4f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
 		Dog.Draw(lightingShader);
 
+		//pelota
 		model = glm::mat4(1);
 		glEnable(GL_BLEND);//Avtiva la funcionalidad para trabajar el canal alfa
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -467,8 +478,55 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 void Animation() {
 	if (AnimBall)
 	{
+		//rotacion orbital
 		rotDog -= orbitSpeedDog * deltaTime;
 		rotBall += orbitSpeedBall * deltaTime;
+
+		// 2. Lógica de la Pelota en el eje Y
+		if (ballGoingUp) {
+			movBallY += speed * deltaTime;
+			if (movBallY >= maxBallY) {
+				movBallY = maxBallY; // Aseguramos que no sobrepase el techo
+				ballGoingUp = false; // Alcanzó el techo, empieza a caer
+			}
+		}
+		else {
+			movBallY -= speed * deltaTime;
+
+			if (movBallY <= minBallY) {
+				movBallY = minBallY;
+				ballGoingUp = true;
+			}
+
+			float timeToJump = dogJumpHeight / dogJumpSpeed;
+			float triggerHeight = minBallY + (speed * timeToJump);
+
+			// El perro solo "escucha" a la pelota para saber cuándo saltar
+			if (movBallY <= triggerHeight && !dogIsJumping && movDogY == 0.0f) {
+				dogIsJumping = true;
+				dogGoingUp = true;
+			}
+		}
+
+		// 3. Lógica del Perro (¡También es independiente!)
+		if (dogIsJumping) {
+			if (dogGoingUp) {
+				movDogY += dogJumpSpeed * deltaTime;
+
+				if (movDogY >= dogJumpHeight) {
+					movDogY = dogJumpHeight;
+					dogGoingUp = false;  // El perro baja por su propia cuenta
+				}
+			}
+			else {
+				movDogY -= dogJumpSpeed * deltaTime;
+
+				if (movDogY <= 0.0f) {
+					movDogY = 0.0f;
+					dogIsJumping = false;
+				}
+			}
+		}
 	}
 
 }
