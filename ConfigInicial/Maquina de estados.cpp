@@ -1,6 +1,6 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 18/04/2026
+* Fecha: 19/04/2026
 * Previo 11: Animación por maquina de estados
 /*/
 #include <iostream>
@@ -544,6 +544,28 @@ void Animation() {
 			}
 		}
 		dogPos.z += 0.0001f;
+
+		//variable que define el limite del piso
+		float limitePiso = 2.35f;
+		if (dogPos.z >= limitePiso) {
+			dogAnim= 0; //regresa al inicio del piso
+
+			//para que el perro regrese al inicio del piso de forma suave, se va disminuyendo la posicion del perro hasta llegar a 0
+			if (dogPos.z > 0.0f) {
+				dogPos.z -= 0.01f;
+			}
+			else {
+				dogPos.z = 0.0f; //para asegurar que el perro regrese exactamente a la posicion inicial
+			}
+
+			//se resetean las variables de animacion para que el perro vuelva a la posicion inicial y pueda volver a iniciar la animacion
+			RLegs = 0.0f;
+			FLegs = 0.0f;
+			head = 0.0f;
+			tail = 0.0f;
+
+		}
+
 	}
 	
 }
