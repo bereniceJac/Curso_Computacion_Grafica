@@ -181,7 +181,7 @@ int main()
 	Model F_RightLeg((char*)"Models/dogBody/F_RightLegDog.obj");
 	Model F_LeftLeg((char*)"Models/dogBody/F_LeftLegDog.obj");
 	Model B_RightLeg((char*)"Models/dogBody/B_RightLegDog.obj");
-	Model B_LeftLeg((char*)"Models/B_LeftLegDog.obj");
+	Model B_LeftLeg((char*)"Models/dogBody/B_LeftLegDog.obj");
 	Model Piso((char*)"Models/piso/piso.obj");
 	Model Ball((char*)"Models/ball/ball.obj");
 
@@ -310,6 +310,7 @@ int main()
 		model = glm::mat4(1);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		//se aplica la jerarquia de transformaciones para cada parte del perro, se guarda la matriz de transformacion del cuerpo para usarla en las partes hijas y se va modificando la matriz para cada parte del perro, al final se regresa a la matriz original para dibujar la pelota
 		//Body
 		modelTemp= model = glm::translate(model, dogPos);
 		modelTemp= model = glm::rotate(model, glm::radians(dogRot), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -504,6 +505,11 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 		AnimBall = !AnimBall;
 		
 	}
+	if (keys[GLFW_KEY_B])
+	{
+		dogAnim = 1;
+
+	}
 	
 }
 void Animation() {
@@ -518,7 +524,27 @@ void Animation() {
 		rotDog -= 0.6f;
 		//printf("%f", rotBall);
 	}
-	
+	if (dogAnim == 1) { //walk animation
+		if(!step) { //state 1
+			RLegs += 0.03f;
+			FLegs += 0.03f;
+			head += 0.03f;
+			tail += 0.03f;
+			if (RLegs >= 15.0f) { //condicion
+				step = true;
+			}
+		}
+		else {
+			RLegs -= 0.03f;
+			FLegs -= 0.03f;
+			head -= 0.03f;
+			tail -= 0.03f;
+			if (RLegs <= -15.0f) {
+				step = false;
+			}
+		}
+		dogPos.z += 0.0001f;
+	}
 	
 }
 
