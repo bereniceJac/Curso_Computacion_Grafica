@@ -546,11 +546,12 @@ void Animation() {
 
 		//variable que define el limite del piso
 		float limitePiso = 2.35f;
+		float limitePisoX = -2.35f;
 		float velocidadCaminata = 0.0005f;
 		float velocidadGiro = 0.5f;
 
 		switch (dogAnim) {
-			case 1: //walk forward
+			case 1: 
 			dogPos.z += velocidadCaminata;
 			if (dogPos.z >= limitePiso) {
 				dogPos.z = limitePiso;
@@ -576,53 +577,67 @@ void Animation() {
 
 			case 4: //walk back
 				dogRot += velocidadGiro;
-				if (dogRot >= 225.0f) {
-					dogRot = 225.0f;
+				if (dogRot >= 180.0f) {
+					dogRot = 180.0f;
 					dogAnim = 5;
 				}
 				break;
 
 			case  5:
-				dogPos.x -= velocidadCaminata;
+				//dogPos.x -= velocidadCaminata;
 				dogPos.z -= velocidadCaminata;
-				if (dogPos.x <= 0.0f || dogPos.z <= 0.0f) {
-					dogPos.x = 0.0f;
-					dogPos.z = 0.0f;
+				if (dogPos.z <= limitePisoX) {
+					dogPos.z = limitePisoX;
 					dogAnim = 6;
 				}
 				break;
 
 			case 6:
 				dogRot += velocidadGiro;
-				if (dogRot >= 360.0f) {
-					dogRot = 0.0f; // Reiniciamos el ángulo a 0 para no arrastrar valores enormes
-					
-					// Fin del recorrido
-					dogAnim = 0; // Cambia a 1 si el profesor pide que el ciclo sea infinito
+				if (dogRot >= 270.0f) {
+					dogRot = 270.0f; 
+					dogAnim = 7; 
+				}
+				break;
+
+			case 7: // CUARTO TRAMO: Hacia Esquina Superior Izquierda (-X)
+				dogPos.x -= velocidadCaminata;
+				if (dogPos.x <= limitePisoX) {
+					dogPos.x = limitePisoX;
+					dogAnim = 8;
+				}
+				break;
+
+			case 8: // CUARTO GIRO: Para mirar al centro. 
+				// De 270° gira 135° para apuntar a la diagonal. 270 + 135 = 405°
+				dogRot += velocidadGiro;
+				if (dogRot >= 405.0f) {
+					dogRot = 405.0f;
+					dogAnim = 9;
+				}
+				break;
+
+			case 9: // QUINTO TRAMO: Diagonal de regreso al origen (+X, +Z)
+				dogPos.x += velocidadCaminata;
+				dogPos.z += velocidadCaminata;
+				if (dogPos.x >= 0.0f || dogPos.z >= 0.0f) {
+					dogPos.x = 0.0f;
+					dogPos.z = 0.0f;
+					dogAnim = 10;
+				}
+				break;
+
+			case 10: // GIRO FINAL: Se endereza para quedar viendo al frente como al inicio
+				dogRot -= velocidadGiro; // Restamos para regresarlo de 405° a 360°
+				if (dogRot <= 360.0f) {
+					dogRot = 0.0f; // Reseteo total a 0°
+
+					dogAnim = 1; // Termina la animación (cambia a 1 si quieres que sea infinito)
 				}
 				break;
 		}
 
-
-
-		//if (dogPos.z >= limitePiso) {
-		//	dogAnim= 0; //regresa al inicio del piso
-
-		//	//para que el perro regrese al inicio del piso de forma suave, se va disminuyendo la posicion del perro hasta llegar a 0
-		//	if (dogPos.z > 0.0f) {
-		//		dogPos.z -= 0.01f;
-		//	}
-		//	else {
-		//		dogPos.z = 0.0f; //para asegurar que el perro regrese exactamente a la posicion inicial
-		//	}
-
-		//	//se resetean las variables de animacion para que el perro vuelva a la posicion inicial y pueda volver a iniciar la animacion
-		//	RLegs = 0.0f;
-		//	FLegs = 0.0f;
-		//	head = 0.0f;
-		//	tail = 0.0f;
-
-		}
+	}
 
 	else {
 		// Estado 0: Reposo total en el origen.
