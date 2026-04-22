@@ -1,7 +1,7 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 19/04/2026
-* Previo 11: Animación por maquina de estados
+* Fecha: 22/04/2026
+* Practica 11: Animación por maquina de estados
 /*/
 #include <iostream>
 #include <cmath>
@@ -524,7 +524,7 @@ void Animation() {
 		rotDog -= 0.6f;
 		//printf("%f", rotBall);
 	}
-	if (dogAnim == 1) { //walk animation
+	if (dogAnim != 0) { //walk animation
 		if(!step) { //state 1
 			RLegs += 0.03f;
 			FLegs += 0.03f;
@@ -543,32 +543,97 @@ void Animation() {
 				step = false;
 			}
 		}
-		dogPos.z += 0.0001f;
 
 		//variable que define el limite del piso
 		float limitePiso = 2.35f;
-		if (dogPos.z >= limitePiso) {
-			dogAnim= 0; //regresa al inicio del piso
+		float velocidadCaminata = 0.0005f;
+		float velocidadGiro = 0.5f;
 
-			//para que el perro regrese al inicio del piso de forma suave, se va disminuyendo la posicion del perro hasta llegar a 0
-			if (dogPos.z > 0.0f) {
-				dogPos.z -= 0.01f;
+		switch (dogAnim) {
+			case 1: //walk forward
+			dogPos.z += velocidadCaminata;
+			if (dogPos.z >= limitePiso) {
+				dogPos.z = limitePiso;
+				dogAnim = 2; //cambia a la animacion de giro
 			}
-			else {
-				dogPos.z = 0.0f; //para asegurar que el perro regrese exactamente a la posicion inicial
-			}
+			break;
 
-			//se resetean las variables de animacion para que el perro vuelva a la posicion inicial y pueda volver a iniciar la animacion
-			RLegs = 0.0f;
-			FLegs = 0.0f;
-			head = 0.0f;
-			tail = 0.0f;
+			case 2: //giro 90°
+				dogRot += velocidadGiro;
+				if (dogRot >= 90.0f) {
+					dogRot = 90.0f;
+					dogAnim = 3;
+				}
+				break;
+
+			case 3: //walk right
+				dogPos.x += velocidadCaminata;
+				if (dogPos.x >= limitePiso) {
+					dogPos.x = limitePiso;
+					dogAnim = 4; //cambia a la animacion de giro
+				}
+				break;
+
+			case 4: //walk back
+				dogRot += velocidadGiro;
+				if (dogRot >= 225.0f) {
+					dogRot = 225.0f;
+					dogAnim = 5;
+				}
+				break;
+
+			case  5:
+				dogPos.x -= velocidadCaminata;
+				dogPos.z -= velocidadCaminata;
+				if (dogPos.x <= 0.0f || dogPos.z <= 0.0f) {
+					dogPos.x = 0.0f;
+					dogPos.z = 0.0f;
+					dogAnim = 6;
+				}
+				break;
+
+			case 6:
+				dogRot += velocidadGiro;
+				if (dogRot >= 360.0f) {
+					dogRot = 0.0f; // Reiniciamos el ángulo a 0 para no arrastrar valores enormes
+					
+					// Fin del recorrido
+					dogAnim = 0; // Cambia a 1 si el profesor pide que el ciclo sea infinito
+				}
+				break;
+		}
+
+
+
+		//if (dogPos.z >= limitePiso) {
+		//	dogAnim= 0; //regresa al inicio del piso
+
+		//	//para que el perro regrese al inicio del piso de forma suave, se va disminuyendo la posicion del perro hasta llegar a 0
+		//	if (dogPos.z > 0.0f) {
+		//		dogPos.z -= 0.01f;
+		//	}
+		//	else {
+		//		dogPos.z = 0.0f; //para asegurar que el perro regrese exactamente a la posicion inicial
+		//	}
+
+		//	//se resetean las variables de animacion para que el perro vuelva a la posicion inicial y pueda volver a iniciar la animacion
+		//	RLegs = 0.0f;
+		//	FLegs = 0.0f;
+		//	head = 0.0f;
+		//	tail = 0.0f;
 
 		}
 
+	else {
+		// Estado 0: Reposo total en el origen.
+		RLegs = 0.0f;
+		FLegs = 0.0f;
+		head = 0.0f;
+		tail = 0.0f;
 	}
-	
 }
+	
+
 
 void MouseCallback(GLFWwindow *window, double xPos, double yPos)
 {
