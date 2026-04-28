@@ -501,22 +501,22 @@ void DoMovement()
 
 	}
 			
-	if (keys[GLFW_KEY_H])
+	if (keys[GLFW_KEY_Y])
 	{
 		dogPosZ += 0.01;
 	}
 
-	if (keys[GLFW_KEY_Y])
+	if (keys[GLFW_KEY_H])
 	{
 		dogPosZ -= 0.01;
 	}
 
-	if (keys[GLFW_KEY_G])
+	if (keys[GLFW_KEY_J])
 	{
 		dogPosX -= 0.01;
 	}
 
-	if (keys[GLFW_KEY_J])
+	if (keys[GLFW_KEY_G])
 	{
 		dogPosX += 0.01;
 	}
