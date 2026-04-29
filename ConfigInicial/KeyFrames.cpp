@@ -108,23 +108,26 @@ glm::vec3 Light1 = glm::vec3(0);
 float rotBall = 0.0f;
 float rotDog = 0.0f;
 int dogAnim = 0;
-float FLegs = 0.0f;
-float RLegs = 0.0f;
 float head = 0.0f;
 float tail = 0.0f;
-
+float dogPitch = 0.0f; // Inclinación del cuerpo para sentarse
+float FR_Leg = 0.0f;   
+float FL_Leg = 0.0f;  
+float B_Legs = 0.0f; // Inclinación de las patas traseras para sentarse
 
 
 //KeyFrames
 float dogPosX , dogPosY , dogPosZ  ;
 
 #define MAX_FRAMES 9
-int i_max_steps = 190;
+int i_max_steps = 800;
 int i_curr_steps = 0;
 typedef struct _frame {
 	
 	float rotDog;
 	float rotDogInc;
+	float dogPitch;       
+	float dogPitchInc;
 	float dogPosX;
 	float dogPosY;
 	float dogPosZ;
@@ -134,6 +137,15 @@ typedef struct _frame {
 	float head;
 	float headInc;
 
+	//patas independientes
+	float FR_Leg;
+	float FR_LegInc;
+	float FL_Leg;
+	float FL_LegInc;
+	float B_Legs;
+	float B_LegsInc;
+	float tail;
+	float tailInc;
 
 }FRAME;
 
@@ -154,6 +166,12 @@ void saveFrame(void)
 	KeyFrame[FrameIndex].rotDog = rotDog;
 	KeyFrame[FrameIndex].head = head;
 
+	KeyFrame[FrameIndex].dogPitch = dogPitch;
+	KeyFrame[FrameIndex].FR_Leg = FR_Leg;
+	KeyFrame[FrameIndex].FL_Leg = FL_Leg;
+	KeyFrame[FrameIndex].B_Legs = B_Legs;
+	KeyFrame[FrameIndex].tail = tail;
+
 	FrameIndex++;
 }
 
@@ -164,6 +182,12 @@ void resetElements(void)
 	dogPosZ = KeyFrame[0].dogPosZ;
 	head = KeyFrame[0].head;
 	rotDog = KeyFrame[0].rotDog;
+
+	dogPitch = KeyFrame[0].dogPitch;
+	FR_Leg = KeyFrame[0].FR_Leg;
+	FL_Leg = KeyFrame[0].FL_Leg;
+	B_Legs = KeyFrame[0].B_Legs;
+	tail = KeyFrame[0].tail;
 
 }
 void interpolation(void)
@@ -176,6 +200,11 @@ void interpolation(void)
 
 	KeyFrame[playIndex].rotDogInc = (KeyFrame[playIndex + 1].rotDog - KeyFrame[playIndex].rotDog) / i_max_steps;
 
+	KeyFrame[playIndex].dogPitchInc = (KeyFrame[playIndex + 1].dogPitch - KeyFrame[playIndex].dogPitch) / i_max_steps;
+	KeyFrame[playIndex].FR_LegInc = (KeyFrame[playIndex + 1].FR_Leg - KeyFrame[playIndex].FR_Leg) / i_max_steps;
+	KeyFrame[playIndex].FL_LegInc = (KeyFrame[playIndex + 1].FL_Leg - KeyFrame[playIndex].FL_Leg) / i_max_steps;
+	KeyFrame[playIndex].B_LegsInc = (KeyFrame[playIndex + 1].B_Legs - KeyFrame[playIndex].B_Legs) / i_max_steps;
+	KeyFrame[playIndex].tailInc = (KeyFrame[playIndex + 1].tail - KeyFrame[playIndex].tail) / i_max_steps;
 }
 
 
@@ -394,6 +423,7 @@ int main()
 		//Body
 		modelTemp= model = glm::translate(model, glm::vec3(dogPosX,dogPosY,dogPosZ));
 		modelTemp= model = glm::rotate(model, glm::radians(rotDog), glm::vec3(0.0f, 1.0f, 0.0f));
+		modelTemp = model = glm::rotate(model, glm::radians(dogPitch), glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		DogBody.Draw(lightingShader);
 		//Head
@@ -411,39 +441,39 @@ int main()
 		//Front Left Leg
 		model = modelTemp;
 		model = glm::translate(model, glm::vec3(0.112f, -0.044f, 0.074f));
-		model = glm::rotate(model, glm::radians(FLegs), glm::vec3(-1.0f, 0.0f, 0.0f)); 
+		model = glm::rotate(model, glm::radians(FL_Leg), glm::vec3(-1.0f, 0.0f, 0.0f)); 
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		F_LeftLeg.Draw(lightingShader);
 		//Front Right Leg
 		model = modelTemp; 
 		model = glm::translate(model, glm::vec3(-0.111f, -0.055f, 0.074f));
-		model = glm::rotate(model, glm::radians(FLegs), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(FR_Leg), glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		F_RightLeg.Draw(lightingShader);
 		//Back Left Leg
 		model = modelTemp; 
 		model = glm::translate(model, glm::vec3(0.082f, -0.046, -0.218)); 
-		model = glm::rotate(model, glm::radians(RLegs), glm::vec3(1.0f, 0.0f, 0.0f)); 
+		model = glm::rotate(model, glm::radians(B_Legs), glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model)); 
 		B_LeftLeg.Draw(lightingShader);
 		//Back Right Leg
 		model = modelTemp; 
 		model = glm::translate(model, glm::vec3(-0.083f, -0.057f, -0.231f));
-		model = glm::rotate(model, glm::radians(RLegs), glm::vec3(-1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(B_Legs), glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		B_RightLeg.Draw(lightingShader); 
 
 
-		model = glm::mat4(1);
-		glEnable(GL_BLEND);//Avtiva la funcionalidad para trabajar el canal alfa
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
-		model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	    Ball.Draw(lightingShader); 
-		glDisable(GL_BLEND);  //Desactiva el canal alfa 
-		glBindVertexArray(0);
+		//model = glm::mat4(1);
+		//glEnable(GL_BLEND);//Avtiva la funcionalidad para trabajar el canal alfa
+		//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
+		//model = glm::rotate(model, glm::radians(rotBall), glm::vec3(0.0f, 1.0f, 0.0f));
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+	 //   Ball.Draw(lightingShader); 
+		//glDisable(GL_BLEND);  //Desactiva el canal alfa 
+		//glBindVertexArray(0);
 	
 
 		// Also draw the lamp object, again binding the appropriate shader
@@ -491,31 +521,99 @@ int main()
 void DoMovement()
 {
 	//Dog Controls
+
+	// Controles para el eje Y (Altura / Centro de Gravedad)
+	if (keys[GLFW_KEY_R])
+	{
+		dogPosY += 0.001f; // Subir
+	}
+
+	if (keys[GLFW_KEY_F])
+	{
+		dogPosY -= 0.001f; // Bajar
+	}
+
+
+
+	//inclinacion del cuerpo para sentarse
+
+	if (keys[GLFW_KEY_Z])
+	{
+
+		dogPitch += 0.01f;
+
+	}
+
+	if (keys[GLFW_KEY_X])
+	{
+
+		dogPitch -= 0.01f;
+
+	}
+
+	//patas
+
+	if (keys[GLFW_KEY_C])
+	{
+
+		FR_Leg += 0.01f; //frontal derecha
+
+	}
+
+	if (keys[GLFW_KEY_V])
+	{
+		FR_Leg -= 0.01f;
+	}
+
+	// Pata Frontal Izquierda
+	if (keys[GLFW_KEY_B]) {
+		FL_Leg += 0.01f; 
+	}
+	if (keys[GLFW_KEY_N]) { 
+		FL_Leg -= 0.01f; 
+	}
+	// Pata Trasera Derecha
+	if (keys[GLFW_KEY_M]) { 
+		B_Legs += 0.1f; 
+	}
+	if (keys[GLFW_KEY_COMMA]) {
+		B_Legs -= 0.1f; 
+	} // Tecla de la coma (,)
 	
+	// Cola
+	if (keys[GLFW_KEY_Q]) { 
+		tail += 0.01f; 
+	}
+	if (keys[GLFW_KEY_E]) {
+		tail -= 0.01f; 
+	}
+
+
+
 	if (keys[GLFW_KEY_4])
 	{
 
-		head += 1.0f;
+		head += 0.01f;
 
 	}
 
 	if (keys[GLFW_KEY_5])
 	{
 
-		head -= 1.0f;
+		head -= 0.01f;
 
 	}
 	if (keys[GLFW_KEY_2])
 	{
 		
-			rotDog += 1.0f;
+			rotDog += 0.1f;
 
 	}
 
 	if (keys[GLFW_KEY_3])
 	{
 		
-			rotDog -= 1.0f;
+			rotDog -= 0.1f;
 
 	}
 			
@@ -692,6 +790,12 @@ void Animation() {
 			dogPosZ += KeyFrame[playIndex].incZ;
 			head += KeyFrame[playIndex].headInc;
 			rotDog += KeyFrame[playIndex].rotDogInc;
+
+			dogPitch += KeyFrame[playIndex].dogPitchInc;
+			FR_Leg += KeyFrame[playIndex].FR_LegInc;
+			FL_Leg += KeyFrame[playIndex].FL_LegInc;
+			B_Legs += KeyFrame[playIndex].B_LegsInc;
+			tail += KeyFrame[playIndex].tailInc;
 
 			i_curr_steps++;
 		}
