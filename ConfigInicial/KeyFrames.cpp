@@ -3,6 +3,7 @@
 * Fecha: 28/04/2026
 * Previo 12: Animación por keyframes
 /*/
+#include <fstream>
 #include <iostream>
 #include <cmath>
 
@@ -114,12 +115,12 @@ float dogPitch = 0.0f; // Inclinación del cuerpo para sentarse
 float FR_Leg = 0.0f;   
 float FL_Leg = 0.0f;  
 float B_Legs = 0.0f; // Inclinación de las patas traseras para sentarse
-
+float dogRoll = 0.0f; // Rotación en Z para el muertito
 
 //KeyFrames
 float dogPosX , dogPosY , dogPosZ  ;
 
-#define MAX_FRAMES 9
+#define MAX_FRAMES 100
 int i_max_steps = 800;
 int i_curr_steps = 0;
 typedef struct _frame {
@@ -128,6 +129,8 @@ typedef struct _frame {
 	float rotDogInc;
 	float dogPitch;       
 	float dogPitchInc;
+	float dogRoll;        
+	float dogRollInc;     
 	float dogPosX;
 	float dogPosY;
 	float dogPosZ;
@@ -172,6 +175,9 @@ void saveFrame(void)
 	KeyFrame[FrameIndex].B_Legs = B_Legs;
 	KeyFrame[FrameIndex].tail = tail;
 
+	KeyFrame[FrameIndex].dogPitch = dogPitch;
+	KeyFrame[FrameIndex].dogRoll = dogRoll;
+
 	FrameIndex++;
 }
 
@@ -189,6 +195,9 @@ void resetElements(void)
 	B_Legs = KeyFrame[0].B_Legs;
 	tail = KeyFrame[0].tail;
 
+	dogPitch = KeyFrame[0].dogPitch;
+	dogRoll = KeyFrame[0].dogRoll;
+
 }
 void interpolation(void)
 {
@@ -205,9 +214,77 @@ void interpolation(void)
 	KeyFrame[playIndex].FL_LegInc = (KeyFrame[playIndex + 1].FL_Leg - KeyFrame[playIndex].FL_Leg) / i_max_steps;
 	KeyFrame[playIndex].B_LegsInc = (KeyFrame[playIndex + 1].B_Legs - KeyFrame[playIndex].B_Legs) / i_max_steps;
 	KeyFrame[playIndex].tailInc = (KeyFrame[playIndex + 1].tail - KeyFrame[playIndex].tail) / i_max_steps;
+
+	KeyFrame[playIndex].dogPitchInc = (KeyFrame[playIndex + 1].dogPitch - KeyFrame[playIndex].dogPitch) / i_max_steps;
+	KeyFrame[playIndex].dogRollInc = (KeyFrame[playIndex + 1].dogRoll - KeyFrame[playIndex].dogRoll) / i_max_steps;
+
+}
+
+void guardarAnimacion(const char* filename) {
+	std::ofstream file(filename);
+	if (file.is_open()) {
+		file << FrameIndex << "\n";
+		for (int i = 0; i < FrameIndex; i++) {
+			file << KeyFrame[i].dogPosX << " " << KeyFrame[i].dogPosY << " " << KeyFrame[i].dogPosZ << " "
+				<< KeyFrame[i].rotDog << " " << KeyFrame[i].dogPitch << " " << KeyFrame[i].dogRoll << " "
+				<< KeyFrame[i].head << " " << KeyFrame[i].FR_Leg << " " << KeyFrame[i].FL_Leg << " "
+				<< KeyFrame[i].B_Legs << " " << KeyFrame[i].tail << "\n";
+		}
+		file.close();
+		std::cout << "Animacion guardada exitosamente en " << filename << std::endl;
+	}
+}
+
+void cargarAnimacion(const char* filename) {
+	std::ifstream file(filename);
+	if (file.is_open()) {
+		file >> FrameIndex;
+		for (int i = 0; i < FrameIndex; i++) {
+			file >> KeyFrame[i].dogPosX >> KeyFrame[i].dogPosY >> KeyFrame[i].dogPosZ
+				>> KeyFrame[i].rotDog >> KeyFrame[i].dogPitch >> KeyFrame[i].dogRoll
+				>> KeyFrame[i].head >> KeyFrame[i].FR_Leg >> KeyFrame[i].FL_Leg
+				>> KeyFrame[i].B_Legs >> KeyFrame[i].tail;
+		}
+		file.close();
+		resetElements();
+		std::cout << "Animacion cargada exitosamente." << std::endl;
+	}
 }
 
 
+void generarSecuenciaInicial() {
+	FrameIndex = 0;
+	i_max_steps = 150; // Una velocidad suave pero no eterna (antes estaba en 800)
+
+	// 1. Estado Base
+	dogPosX = 0; dogPosY = 0; dogPosZ = 0;
+	rotDog = 0; dogPitch = 0; dogRoll = 0; head = 0;
+	FR_Leg = 0; FL_Leg = 0; B_Legs = 0; tail = 0;
+	saveFrame();
+
+	// 2. Sentado (Caderas abajo, patas traseras flexionadas)
+	dogPosY = -0.05f;
+	dogPitch = -25.0f;
+	B_Legs = 40.0f;
+	saveFrame();
+
+	// 3. Muertito (Tirado en el piso, rotado de lado)
+	dogPosY = -0.15f;
+	dogPitch = 0.0f;
+	dogRoll = 90.0f;  // Se acuesta de lado
+	B_Legs = 0.0f;
+	saveFrame();
+
+	// 4. Regreso a Estado Base
+	dogPosY = 0;
+	dogRoll = 0.0f;
+	saveFrame();
+
+	// 5. Dar la patita (Estado base + pata frontal levantada)
+	FR_Leg = -50.0f;
+	head = 15.0f; // Voltea a ver un poco hacia arriba
+	saveFrame();
+}
 
 // Deltatime
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
@@ -318,6 +395,35 @@ int main()
 	
 	glm::mat4 projection = glm::perspective(camera.GetZoom(), (GLfloat)SCREEN_WIDTH / (GLfloat)SCREEN_HEIGHT, 0.1f, 100.0f);
 
+
+
+	// --- INICIO DE GESTIÓN DE ANIMACIÓN AUTOMÁTICA ---
+	std::ifstream testFile("animacion_perrito.txt");
+	if (testFile.good()) {
+		testFile.close();
+		cargarAnimacion("animacion_perrito.txt");
+	}
+	else {
+		generarSecuenciaInicial();
+		guardarAnimacion("animacion_perrito.txt");
+	}
+
+	// Auto-iniciar la reproducción al abrir el programa
+	if (FrameIndex > 1) {
+		resetElements();
+		interpolation();
+		play = true;
+		playIndex = 0;
+		i_curr_steps = 0;
+	}
+	// --- FIN DE GESTIÓN DE ANIMACIÓN ---
+
+	// Game loop
+	while (!glfwWindowShouldClose(window))
+
+
+
+
 	// Game loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -424,6 +530,7 @@ int main()
 		modelTemp= model = glm::translate(model, glm::vec3(dogPosX,dogPosY,dogPosZ));
 		modelTemp= model = glm::rotate(model, glm::radians(rotDog), glm::vec3(0.0f, 1.0f, 0.0f));
 		modelTemp = model = glm::rotate(model, glm::radians(dogPitch), glm::vec3(1.0f, 0.0f, 0.0f));
+		modelTemp = model = glm::rotate(model, glm::radians(dogRoll), glm::vec3(0.0f, 0.0f, 1.0f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		DogBody.Draw(lightingShader);
 		//Head
@@ -521,7 +628,7 @@ int main()
 void DoMovement()
 {
 	//Dog Controls
-
+	
 	// Controles para el eje Y (Altura / Centro de Gravedad)
 	if (keys[GLFW_KEY_R])
 	{
@@ -796,6 +903,9 @@ void Animation() {
 			FL_Leg += KeyFrame[playIndex].FL_LegInc;
 			B_Legs += KeyFrame[playIndex].B_LegsInc;
 			tail += KeyFrame[playIndex].tailInc;
+
+			dogPitch += KeyFrame[playIndex].dogPitchInc;
+			dogRoll += KeyFrame[playIndex].dogRollInc;
 
 			i_curr_steps++;
 		}
