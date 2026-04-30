@@ -1,7 +1,7 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 28/04/2026
-* Previo 12: Animación por keyframes
+* Fecha: 29/04/2026
+* Práctica 12: Animación por keyframes
 /*/
 #include <fstream>
 #include <iostream>
@@ -175,7 +175,6 @@ void saveFrame(void)
 	KeyFrame[FrameIndex].B_Legs = B_Legs;
 	KeyFrame[FrameIndex].tail = tail;
 
-	KeyFrame[FrameIndex].dogPitch = dogPitch;
 	KeyFrame[FrameIndex].dogRoll = dogRoll;
 
 	FrameIndex++;
@@ -215,7 +214,6 @@ void interpolation(void)
 	KeyFrame[playIndex].B_LegsInc = (KeyFrame[playIndex + 1].B_Legs - KeyFrame[playIndex].B_Legs) / i_max_steps;
 	KeyFrame[playIndex].tailInc = (KeyFrame[playIndex + 1].tail - KeyFrame[playIndex].tail) / i_max_steps;
 
-	KeyFrame[playIndex].dogPitchInc = (KeyFrame[playIndex + 1].dogPitch - KeyFrame[playIndex].dogPitch) / i_max_steps;
 	KeyFrame[playIndex].dogRollInc = (KeyFrame[playIndex + 1].dogRoll - KeyFrame[playIndex].dogRoll) / i_max_steps;
 
 }
@@ -629,120 +627,39 @@ void DoMovement()
 {
 	//Dog Controls
 	
-	// Controles para el eje Y (Altura / Centro de Gravedad)
-	if (keys[GLFW_KEY_R])
-	{
-		dogPosY += 0.001f; // Subir
-	}
+	bool ctrlPressed = keys[GLFW_KEY_LEFT_CONTROL] || keys[GLFW_KEY_RIGHT_CONTROL];
+	float dir = ctrlPressed ? -1.0f : 1.0f;
 
-	if (keys[GLFW_KEY_F])
-	{
-		dogPosY -= 0.001f; // Bajar
-	}
+	//eje Y
+	if (keys[GLFW_KEY_R]) dogPosY -= 0.001f * dir;
 
+	//eje X-Z
+	if (keys[GLFW_KEY_G]) dogPosX += 0.01f * dir;
+	if (keys[GLFW_KEY_Y]) dogPosZ += 0.01f * dir;
 
+	//rotacion hacia los lados
+	if (keys[GLFW_KEY_2]) rotDog += 0.1f * dir;
 
-	//inclinacion del cuerpo para sentarse
+	//rotación en X (para sentarse)
+	if (keys[GLFW_KEY_Z]) dogPitch -= 0.01f * dir;
 
-	if (keys[GLFW_KEY_Z])
-	{
+	//rotacion en Z (para el muertito)
+	if (keys[GLFW_KEY_F]) dogRoll += 0.5f * dir;
 
-		dogPitch += 0.01f;
+	//cabeza
+	if (keys[GLFW_KEY_4]) head += 0.1f * dir;
 
-	}
+	//cola
+	if (keys[GLFW_KEY_Q]) tail += 0.1f * dir;
 
-	if (keys[GLFW_KEY_X])
-	{
+	// Pata frontal derecha
+	if (keys[GLFW_KEY_C]) FR_Leg += 0.01f * dir;
 
-		dogPitch -= 0.01f;
+	// Pata frontal izquierda
+	if (keys[GLFW_KEY_B]) FL_Leg += 0.01f * dir;
 
-	}
-
-	//patas
-
-	if (keys[GLFW_KEY_C])
-	{
-
-		FR_Leg += 0.01f; //frontal derecha
-
-	}
-
-	if (keys[GLFW_KEY_V])
-	{
-		FR_Leg -= 0.01f;
-	}
-
-	// Pata Frontal Izquierda
-	if (keys[GLFW_KEY_B]) {
-		FL_Leg += 0.01f; 
-	}
-	if (keys[GLFW_KEY_N]) { 
-		FL_Leg -= 0.01f; 
-	}
-	// Pata Trasera Derecha
-	if (keys[GLFW_KEY_M]) { 
-		B_Legs += 0.1f; 
-	}
-	if (keys[GLFW_KEY_COMMA]) {
-		B_Legs -= 0.1f; 
-	} // Tecla de la coma (,)
-	
-	// Cola
-	if (keys[GLFW_KEY_Q]) { 
-		tail += 0.01f; 
-	}
-	if (keys[GLFW_KEY_E]) {
-		tail -= 0.01f; 
-	}
-
-
-
-	if (keys[GLFW_KEY_4])
-	{
-
-		head += 0.01f;
-
-	}
-
-	if (keys[GLFW_KEY_5])
-	{
-
-		head -= 0.01f;
-
-	}
-	if (keys[GLFW_KEY_2])
-	{
-		
-			rotDog += 0.1f;
-
-	}
-
-	if (keys[GLFW_KEY_3])
-	{
-		
-			rotDog -= 0.1f;
-
-	}
-			
-	if (keys[GLFW_KEY_Y])
-	{
-		dogPosZ += 0.01;
-	}
-
-	if (keys[GLFW_KEY_H])
-	{
-		dogPosZ -= 0.01;
-	}
-
-	if (keys[GLFW_KEY_J])
-	{
-		dogPosX -= 0.01;
-	}
-
-	if (keys[GLFW_KEY_G])
-	{
-		dogPosX += 0.01;
-	}
+	// Patas traseras
+	if (keys[GLFW_KEY_M]) B_Legs -= 0.1f * dir;
 
 	// Camera controls
 	if (keys[GLFW_KEY_W] || keys[GLFW_KEY_UP])
@@ -834,6 +751,40 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 
 	}
 
+	//para guardar un frame
+	if (keys[GLFW_KEY_P])
+	{
+		guardarAnimacion("animacion_perrito.txt");
+	}
+
+
+	if (keys[GLFW_KEY_BACKSPACE])
+	{
+		if (FrameIndex > 0) {
+			// Copia los valores del último frame guardado a las variables actuales
+			dogPosX = KeyFrame[FrameIndex - 1].dogPosX;
+			dogPosY = KeyFrame[FrameIndex - 1].dogPosY;
+			dogPosZ = KeyFrame[FrameIndex - 1].dogPosZ;
+			rotDog = KeyFrame[FrameIndex - 1].rotDog;
+			dogPitch = KeyFrame[FrameIndex - 1].dogPitch;
+			dogRoll = KeyFrame[FrameIndex - 1].dogRoll;
+			head = KeyFrame[FrameIndex - 1].head;
+			FR_Leg = KeyFrame[FrameIndex - 1].FR_Leg;
+			FL_Leg = KeyFrame[FrameIndex - 1].FL_Leg;
+			B_Legs = KeyFrame[FrameIndex - 1].B_Legs;
+			tail = KeyFrame[FrameIndex - 1].tail;
+			std::cout << "Pose reiniciada al ultimo frame guardado." << std::endl;
+		}
+	}
+
+
+	if (keys[GLFW_KEY_DELETE])
+	{
+		if (FrameIndex > 0) {
+			FrameIndex--; // Resta 1 al contador, eliminando el frame
+			std::cout << "Ultimo frame eliminado. Frames totales: " << FrameIndex << std::endl;
+		}
+	}
 
 
 	if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
@@ -904,7 +855,6 @@ void Animation() {
 			B_Legs += KeyFrame[playIndex].B_LegsInc;
 			tail += KeyFrame[playIndex].tailInc;
 
-			dogPitch += KeyFrame[playIndex].dogPitchInc;
 			dogRoll += KeyFrame[playIndex].dogRollInc;
 
 			i_curr_steps++;
