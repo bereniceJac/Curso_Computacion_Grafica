@@ -1,6 +1,6 @@
 /* Jacinto Robledo Valeria Berenice
 * No. de Cuenta: 32005797-3
-* Fecha: 29/04/2026
+* Fecha: 30/04/2026
 * Práctica 12: Animación por keyframes
 /*/
 #include <fstream>
@@ -300,7 +300,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);*/
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Jacinto Robledo - Animacion maquina de estados", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Jacinto Robledo - Animacion por keyframes", nullptr, nullptr);
 
 	if (nullptr == window)
 	{
